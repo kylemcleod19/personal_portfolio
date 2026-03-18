@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const workEntries = await getCollection('work');
+const featuredWork = workEntries
+  .filter((e) => e.data.featured)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Your Name — Product Leader">
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+    <div class="max-w-2xl">
+      <p class="text-accent-600 font-medium mb-3 text-sm tracking-wide uppercase">Product Leader</p>
+      <h1 class="text-5xl font-bold text-gray-900 leading-tight mb-6">
+        Building products people<br />actually want to use.
+      </h1>
+      <p class="text-xl text-gray-500 leading-relaxed mb-10">
+        I lead product teams that ship meaningful software — from zero-to-one to enterprise scale.
+        Currently open to new opportunities.
+      </p>
+      <div class="flex items-center gap-4">
+        <a
+          href="/work"
+          class="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+        >
+          View my work
+        </a>
+        <a
+          href="/contact"
+          class="text-gray-600 font-medium hover:text-gray-900 transition-colors flex items-center gap-1"
+        >
+          Get in touch →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Work -->
+  {featuredWork.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 pb-24">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="text-2xl font-bold text-gray-900">Selected work</h2>
+        <a href="/work" class="text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors">
+          View all →
+        </a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {featuredWork.map((entry) => (
+          <a
+            href={`/work/${entry.slug}`}
+            class="group block bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+          >
+            {entry.data.cover && (
+              <div class="aspect-video bg-gray-50 overflow-hidden">
+                <img
+                  src={entry.data.cover}
+                  alt={entry.data.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <div class="flex flex-wrap gap-2 mb-3">
+                {entry.data.tags.map((tag: string) => (
+                  <span class="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-accent-600 transition-colors">
+                {entry.data.title}
+              </h3>
+              <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                {entry.data.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- About strip -->
+  <section class="bg-gray-50 py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">About me</h2>
+          <p class="text-gray-500 leading-relaxed mb-4">
+            I've spent the last X years leading product at companies ranging from seed-stage startups
+            to publicly traded enterprises. I care deeply about user research, data-informed decisions,
+            and cross-functional collaboration.
+          </p>
+          <p class="text-gray-500 leading-relaxed">
+            Outside of work you'll find me [hobby], [hobby], or reading about [topic].
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 text-center">
+          {[
+            { value: '10+', label: 'Products shipped' },
+            { value: '5', label: 'Years in product' },
+            { value: '3', label: 'Industries' },
+            { value: '∞', label: 'User interviews' },
+          ].map((stat) => (
+            <div class="bg-white rounded-2xl p-6 border border-gray-100">
+              <div class="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
+              <div class="text-sm text-gray-500">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Product leader focused on building great user experiences.',
+  ogImage = '/images/og-default.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+      <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold text-lg text-gray-900 hover:text-accent-600 transition-colors">
+          Your Name
+        </a>
+        <ul class="flex items-center gap-8 text-sm font-medium text-gray-600">
+          <li><a href="/work" class="hover:text-gray-900 transition-colors">Work</a></li>
+          <li><a href="/blog" class="hover:text-gray-900 transition-colors">Blog</a></li>
+          <li>
+            <a
+              href="/contact"
+              class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="border-t border-gray-100 py-10 mt-20">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+        <p>&copy; {new Date().getFullYear()} Your Name. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" class="hover:text-gray-600 transition-colors">LinkedIn</a>
+          <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener" class="hover:text-gray-600 transition-colors">Twitter</a>
+          <a href="mailto:you@yourdomain.com" class="hover:text-gray-600 transition-colors">Email</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

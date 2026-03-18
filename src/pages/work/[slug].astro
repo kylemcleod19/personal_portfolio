@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work');
+  return entries.map((e) => ({ params: { slug: e.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('work', slug as string);
+if (!entry) return Astro.redirect('/work');
+
+const { Content } = await entry.render();
+const { title, description, tags, cover, outcome, role, duration, pubDate } = entry.data;
+---
+
+<BaseLayout title={`${title} — Your Name`} description={description} ogImage={cover}>
+  <article class="max-w-3xl mx-auto px-6 pt-16 pb-24">
+    <!-- Back -->
+    <a href="/work" class="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-gray-700 transition-colors mb-10">
+      ← All work
+    </a>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag) => (
+          <span class="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{tag}</span>
+        ))}
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
+      <p class="text-xl text-gray-500">{description}</p>
+
+      <!-- Meta bar -->
+      <dl class="mt-8 flex flex-wrap gap-8 border-t border-gray-100 pt-6 text-sm">
+        {role && (
+          <div>
+            <dt class="text-gray-400 font-medium mb-0.5">Role</dt>
+            <dd class="text-gray-700">{role}</dd>
+          </div>
+        )}
+        {duration && (
+          <div>
+            <dt class="text-gray-400 font-medium mb-0.5">Duration</dt>
+            <dd class="text-gray-700">{duration}</dd>
+          </div>
+        )}
+        {outcome && (
+          <div>
+            <dt class="text-gray-400 font-medium mb-0.5">Outcome</dt>
+            <dd class="text-gray-700 font-medium text-accent-600">{outcome}</dd>
+          </div>
+        )}
+      </dl>
+    </header>
+
+    <!-- Cover image -->
+    {cover && (
+      <div class="rounded-2xl overflow-hidden mb-12 bg-gray-50 aspect-video">
+        <img src={cover} alt={title} class="w-full h-full object-cover" />
+      </div>
+    )}
+
+    <!-- Content -->
+    <div class="prose-portfolio">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
