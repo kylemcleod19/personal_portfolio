@@ -1,0 +1,44 @@
+---
+title: "catch.ai"
+description: "A fishing log app built with zero code — using AI for voice logging, condition data, and trip pattern recognition."
+pubDate: 2026-03-18
+tags: ["AI Development", "No-Code Build", "Consumer"]
+featured: true
+outcome: "Live demo, partial functionality — March 2026"
+role: "Solo Builder — zero code written"
+duration: "March 2026 — ongoing"
+---
+
+## The Problem
+
+Fishing trips generate a surprising amount of useful data — location, conditions, what worked, what didn't. I was tracking all of it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. The result: I couldn't remember what worked where, couldn't find patterns across trips, and every spot looked the same in my memory.
+
+The fix was obvious. The question was how fast I could build it without writing a single line of code.
+
+## The Hypothesis
+
+What gets called a "prototype" today is probably 95% of the functionality a good app actually needs — if you're willing to use AI tools to build it.
+
+## The Stack
+
+- **Research:** ChatGPT for feature scoping and API exploration
+- **Build:** Lovable for the full application — UI, backend, and data layer
+- **Zero code written.** Every implementation decision was directed through prompts.
+
+## What I Built
+
+**Voice log → AI normalization** — Talk through a trip naturally. The app transcribes and normalizes it into a structured log entry: species, location, conditions, techniques, outcome. No forms.
+
+**AI suggestions** — A fishing assistant with access to your log history. More like a knowledgeable guide than a generic chatbot.
+
+**USGS data integration** *(in progress)* — AI takes raw API responses from USGS stream gauges and translates them into plain-language fishing condition summaries.
+
+## Early Observations
+
+The backend setup in Lovable was faster than expected — what would have taken a sprint took an afternoon. Voice log to AI normalization was easier to implement than expected; the hard part wasn't the AI, it was input edge cases.
+
+Debugging is harder than it looks. When something breaks, the path to root cause is less obvious than in a traditional dev environment. The UI is clean and largely what I'd have designed myself, though Lovable has some opinionated input patterns that occasionally fight you.
+
+## Try It
+
+[catchapp.kyle-mcleod.io](https://catchapp.kyle-mcleod.io)
