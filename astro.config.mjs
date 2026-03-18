@@ -4,8 +4,7 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  // Replace with your actual domain once deployed
-  site: 'https://yourname.pages.dev',
+  site: 'https://kyle-mcleod.io',
   output: 'static',
   integrations: [mdx(), react(), tailwind()],
 });
