@@ -91,25 +91,29 @@ const featuredWork = workEntries
         <div>
           <h2 class="text-3xl font-bold text-gray-900 mb-4">About me</h2>
           <p class="text-gray-500 leading-relaxed mb-4">
-            I've spent the last X years leading product at companies ranging from seed-stage startups
-            to publicly traded enterprises. I care deeply about user research, data-informed decisions,
-            and cross-functional collaboration.
+            I spent seven years as a mechanical and manufacturing engineer — designing and building offshore drilling equipment at Schlumberger. That's where I learned how to think about systems, constraints, and what it actually takes to ship something real.
+          </p>
+          <p class="text-gray-500 leading-relaxed mb-4">
+            I moved into product management and spent the next seven years at B2B marketplaces: first at AWL, building consumer quote flows and lead nurturing for insurance, then at MacroFab, where customers could upload a PCB design and get real-time quoting and ordering for custom electronics.
+          </p>
+          <p class="text-gray-500 leading-relaxed mb-4">
+            Now I'm testing a thesis: that AI-fluent product leaders can build and ship at a scale that used to require large teams. I'm building products to prove it.
           </p>
           <p class="text-gray-500 leading-relaxed">
-            Outside of work you'll find me [hobby], [hobby], or reading about [topic].
+            When I'm not building, I'm probably fly fishing.
           </p>
         </div>
-        <div class="grid grid-cols-2 gap-4 text-center">
+        <div class="flex flex-col items-center justify-center gap-8">
           {[
-            { value: '10+', label: 'Products shipped' },
-            { value: '5', label: 'Years in product' },
-            { value: '3', label: 'Industries' },
-            { value: '∞', label: 'User interviews' },
-          ].map((stat) => (
-            <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <div class="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-              <div class="text-sm text-gray-500">{stat.label}</div>
-            </div>
+            { src: '/images/logos/schlumberger.svg', alt: 'Schlumberger' },
+            { src: '/images/logos/awl.svg', alt: 'AWL' },
+            { src: '/images/logos/macrofab.png', alt: 'MacroFab' },
+          ].map((logo) => (
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class="h-10 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            />
           ))}
         </div>
       </div>
