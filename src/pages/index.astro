@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import HeroTerminal from '../components/HeroTerminal.tsx';
 
 const workEntries = await getCollection('work');
 const featuredWork = workEntries
@@ -12,7 +13,8 @@ const featuredWork = workEntries
 <BaseLayout title="Kyle McLeod — Product Leader & AI Builder">
   <!-- Hero -->
   <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
-    <div class="max-w-2xl">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div>
       <p class="text-accent-600 font-medium mb-3 text-sm tracking-wide uppercase">Product Leader · AI Builder</p>
       <h1 class="text-5xl font-bold text-gray-900 leading-tight mb-6">
         Seven years building B2B products. Now testing what AI makes possible.
@@ -36,6 +38,10 @@ const featuredWork = workEntries
           Connect on LinkedIn →
         </a>
       </div>
+    </div>
+    <div class="hidden md:block">
+      <HeroTerminal client:load />
+    </div>
     </div>
   </section>
 
