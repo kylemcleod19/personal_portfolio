@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import HeroTerminal from '../components/HeroTerminal.tsx';
+import CompanyLogos from '../components/CompanyLogos.tsx';
 
 const workEntries = await getCollection('work');
 const featuredWork = workEntries
@@ -112,22 +113,8 @@ const featuredWork = workEntries
             When I'm not building, I'm probably fly fishing.
           </p>
         </div>
-        <div class="flex items-center gap-12 mt-10 pt-8 border-t border-gray-200">
-          <img
-            src="/images/logos/schlumberger.svg"
-            alt="Schlumberger"
-            class="h-10 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-          />
-          <img
-            src="/images/logos/awl.svg"
-            alt="AWL"
-            class="h-10 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-          />
-          <img
-            src="/images/logos/macrofab.png"
-            alt="MacroFab"
-            class="h-10 w-auto grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-          />
+        <div class="mt-10 pt-8 border-t border-gray-200">
+          <CompanyLogos client:load />
         </div>
       </div>
     </div>
