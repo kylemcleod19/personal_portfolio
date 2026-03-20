@@ -1,43 +1,55 @@
 ---
 title: "catch.ai"
-description: "A fishing log app built with zero code — using AI for voice logging, condition data, and trip pattern recognition."
+description: "A fishing log app built in 4 hours with zero code — testing whether AI tools can replace a dev team for production consumer apps."
 pubDate: 2026-03-18
 tags: ["AI Development", "No-Code Build", "Consumer"]
 featured: true
-outcome: "Live demo, partial functionality — March 2026"
+outcome: "Working demo in 4 hours, zero code — March 2026"
 role: "Solo Builder — zero code written"
 duration: "March 2026 — ongoing"
 ---
 
+## The Thesis Test
+
+My core thesis: AI-fluent product leaders can build and ship at a scale that used to require large teams. catch.ai tests a specific piece of that — how far can a prototype actually go? Not just a demo with buttons, but smart integrations, data transformation layers, and real feature depth. Can AI development tools deliver production-grade functionality at prototype speed?
+
 ## The Problem
 
-Fishing trips generate a surprising amount of useful data — location, conditions, what worked, what didn't. I was tracking all of it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. The result: I couldn't remember what worked where, couldn't find patterns across trips, and every spot looked the same in my memory.
+Fishing trips generate useful data — location, conditions, what worked, what didn't. I was tracking it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. Nothing connected. I couldn't find patterns across trips, and every spot looked the same in my memory.
 
-The fix was obvious. The question was how fast I could build it without writing a single line of code.
+## The Process
 
-## The Hypothesis
+I brainstorm on walks, talking through product thinking with ChatGPT. That produces a guidelines file — design and architecture decisions — that becomes the blueprint for Lovable. From there: ~10 prompts to set up the core structure and speech-to-text tooling. Four hours from zero to a working demo.
 
-What gets called a "prototype" today is probably 95% of the functionality a good app actually needs — if you're willing to use AI tools to build it.
-
-## The Stack
-
-- **Research:** ChatGPT for feature scoping and API exploration
-- **Build:** Lovable for the full application — UI, backend, and data layer
+- **Research & scoping:** ChatGPT for feature definition, API exploration, creative brainstorming
+- **Guidelines file:** Architecture and design decisions captured before touching Lovable
+- **Build:** Lovable for the full application — UI, backend, data layer. ~10 prompts to working app.
 - **Zero code written.** Every implementation decision was directed through prompts.
 
-## What I Built
+## What It Does
 
 **Voice log → AI normalization** — Talk through a trip naturally. The app transcribes and normalizes it into a structured log entry: species, location, conditions, techniques, outcome. No forms.
 
 **AI suggestions** — A fishing assistant with access to your log history. More like a knowledgeable guide than a generic chatbot.
 
-**USGS data integration** *(in progress)* — AI takes raw API responses from USGS stream gauges and translates them into plain-language fishing condition summaries.
+**USGS data integration** *(in progress)* — Raw API responses from USGS stream gauges translated into plain-language fishing condition summaries.
 
-## Early Observations
+## What's Actually Hard
 
-The backend setup in Lovable was faster than expected — what would have taken a sprint took an afternoon. Voice log to AI normalization was easier to implement than expected; the hard part wasn't the AI, it was input edge cases.
+The 4-hour demo proves the thesis directionally — but the edge cases reveal where AI tooling still has friction:
 
-Debugging is harder than it looks. When something breaks, the path to root cause is less obvious than in a traditional dev environment. The UI is clean and largely what I'd have designed myself, though Lovable has some opinionated input patterns that occasionally fight you.
+- **Maps integration:** Getting the UI right took more iteration than the core app logic.
+- **Safari microphone access:** Mobile browser permissions are a pain point that Lovable can't abstract away.
+- **Security:** Cloudflare configuration to prevent AI endpoint abuse required manual problem-solving outside the AI toolchain.
+- **USGS database:** The upstream data structure is messy — harder to work with than expected, and not something prompts can easily fix.
+
+The pattern: core product logic is fast. Platform integrations, security, and upstream data quality are where the time goes.
+
+## What This Proves (So Far)
+
+A single product-minded person with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo — it's depth. Can you add smart integrations (USGS stream data → plain-language fishing conditions)? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require a dedicated ML engineer?
+
+Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes — and that's where I'm pushing now.
 
 ## Try It
 
