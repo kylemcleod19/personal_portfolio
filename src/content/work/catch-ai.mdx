@@ -1,12 +1,12 @@
 ---
 title: "catch.ai"
-description: "A fishing log app built in 4 hours with zero code — testing whether AI tools can replace a dev team for production consumer apps."
+description: "A fishing log app with voice-to-structured-data, external API integrations, and AI features. Built in 4 hours with zero code. Testing how much product depth AI tools can deliver at prototype speed."
 pubDate: 2026-03-18
 tags: ["AI Development", "No-Code Build", "Consumer"]
 featured: true
-outcome: "Working demo in 4 hours, zero code — March 2026"
-role: "Solo Builder — zero code written"
-duration: "March 2026 — ongoing"
+outcome: "Working demo in 4 hours, zero code. March 2026"
+role: "Solo Builder. Zero code written"
+duration: "March 2026, ongoing"
 cover: "/images/work/Catch App Home.png"
 showCoverOnPage: false
 ---
@@ -22,28 +22,28 @@ import BuildTimeline from '../../components/BuildTimeline.tsx';
 
 ## The Thesis Test
 
-My core thesis: AI-fluent product leaders can build and ship at a scale that used to require large teams. catch.ai tests a specific piece of that — how far can a prototype actually go? Not just a demo with buttons, but smart integrations, data transformation layers, and real feature depth. Can AI development tools deliver production-grade functionality at prototype speed?
+catch.ai tests how much product depth AI tools can deliver at prototype speed. Not just a demo with buttons. Real product decisions: which integrations matter, how to transform messy upstream data into user value, and where AI features add depth that would normally require dedicated engineering.
 
 ## The Problem
 
-Fishing trips generate useful data — location, conditions, what worked, what didn't. I was tracking it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. Nothing connected. I couldn't find patterns across trips, and every spot looked the same in my memory.
+Fishing trips generate useful data. Location, conditions, what worked, what didn't. I was tracking it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. Nothing connected. I couldn't find patterns across trips, and every spot looked the same in my memory.
 
 ## The Process
 
-I brainstorm on walks, talking through product thinking with ChatGPT. That produces a guidelines file — design and architecture decisions — that becomes the blueprint for Lovable. From there: ~10 prompts to set up the core structure and speech-to-text tooling. Four hours from zero to a working demo.
+I brainstorm on walks, talking through product thinking with ChatGPT. That produces a guidelines file. Design and architecture decisions captured before touching any build tool. From there: ~10 prompts to set up the core structure and speech-to-text tooling. Four hours from zero to a working demo.
 
 - **Research & scoping:** ChatGPT for feature definition, API exploration, creative brainstorming
 - **Guidelines file:** Architecture and design decisions captured before touching Lovable
-- **Build:** Lovable for the full application — UI, backend, data layer. ~10 prompts to working app.
+- **Build:** Lovable for the full application. UI, backend, data layer. ~10 prompts to working app.
 - **Zero code written.** Every implementation decision was directed through prompts.
 
 ## What It Does
 
-**Voice log → AI normalization** — Talk through a trip naturally. The app transcribes and normalizes it into a structured log entry: species, location, conditions, techniques, outcome. No forms.
+**Voice log to AI normalization.** Talk through a trip naturally. The app transcribes and normalizes it into a structured log entry: species, location, conditions, techniques, outcome. No forms.
 
-**AI suggestions** — A fishing assistant with access to your log history. More like a knowledgeable guide than a generic chatbot.
+**AI suggestions.** A fishing assistant with access to your log history. More like a knowledgeable guide than a generic chatbot.
 
-**USGS data integration** *(in progress)* — Raw API responses from USGS stream gauges translated into plain-language fishing condition summaries.
+**USGS data integration** *(in progress).* Raw API responses from USGS stream gauges translated into plain-language fishing condition summaries.
 
 <div class="not-prose grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
   <img src="/images/work/Catch%20App%20Voice%20Memo.png" alt="Voice memo feature" class="w-full rounded-xl border border-gray-100" />
@@ -52,20 +52,20 @@ I brainstorm on walks, talking through product thinking with ChatGPT. That produ
 
 ## What's Actually Hard
 
-The 4-hour demo proves the thesis directionally — but the edge cases reveal where AI tooling still has friction:
+The 4-hour demo proves the thesis directionally. But the edge cases reveal where AI tooling still has friction:
 
 - **Maps integration:** Getting the UI right took more iteration than the core app logic.
 - **Safari microphone access:** Mobile browser permissions are a pain point that Lovable can't abstract away.
 - **Security:** Cloudflare configuration to prevent AI endpoint abuse required manual problem-solving outside the AI toolchain.
-- **USGS database:** The upstream data structure is messy — harder to work with than expected, and not something prompts can easily fix.
+- **USGS database:** The upstream data structure is messy. Harder to work with than expected, and not something prompts can easily fix.
 
 The pattern: core product logic is fast. Platform integrations, security, and upstream data quality are where the time goes.
 
 ## What This Proves (So Far)
 
-A single product-minded person with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo — it's depth. Can you add smart integrations (USGS stream data → plain-language fishing conditions)? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require a dedicated ML engineer?
+A product leader with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo. It's depth. Can you make real product decisions about external data integrations (USGS stream data into plain-language fishing conditions)? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require dedicated engineering?
 
-Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes — and that's where I'm pushing now.
+Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes. That's where I'm pushing now.
 
 ## Try It
 

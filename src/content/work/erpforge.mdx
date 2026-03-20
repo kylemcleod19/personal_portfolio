@@ -1,12 +1,12 @@
 ---
 title: "ERPForge"
-description: "A manufacturing ERP built by a product leader using Claude skills and AI workflows — testing whether domain experts can replace systems integrators."
+description: "A manufacturing ERP built in days using Claude skills and AI workflows. Testing how domain expertise and AI-driven product processes compress the path from requirements to working system."
 pubDate: 2026-03-20
 tags: ["AI Development", "Manufacturing", "ERP"]
 featured: true
 outcome: "8-module ERP live in ~3 days — March 2026"
-role: "Solo Builder — Claude skills + ChatGPT architecture"
-duration: "March 2026 — ongoing"
+role: "Solo Builder. Claude skills + ChatGPT architecture"
+duration: "March 2026, ongoing"
 cover: "/images/work/ERP Forge - Menu.png"
 showCoverOnPage: false
 ---
@@ -23,31 +23,31 @@ import BuildTimeline from '../../components/BuildTimeline.tsx';
 
 ## The Thesis Test
 
-My core thesis: a product domain expert can recreate the product development and systems integration process with agentic AI tools and workflows. ERPForge tests the sharpest version of that — can you build the *process* for building ERPs, not just one ERP?
+A product leader with deep domain knowledge and the right AI workflow can compress months of requirements, architecture, and implementation into days. ERPForge tests the sharpest version of that. Can you codify the product process itself into reusable AI skills, so the next system builds faster than the last?
 
 ## The Problem
 
 Traditional ERPs exist because code was expensive. Vendors built lowest-common-denominator software for a business segment, then tried to configure it per customer. Big customers got the most features. Small ones got the base package or cobbled together Excel and point solutions.
 
-At MacroFab, we built manufacturing workflows in-house because MRPs were expensive and slow to implement. The cost structure forced that tradeoff — build it yourself or settle for software that doesn't match your operations.
+At MacroFab, we built manufacturing workflows in-house because MRPs were expensive and slow to implement. The cost structure forced that tradeoff. Build it yourself or settle for software that doesn't match your operations.
 
 What if the cost structure changed?
 
 ## The Approach
 
-I architected the system with ChatGPT — talked through the design on a walk, generated a `CLAUDE.md` file and an architecture doc — then used Claude to build the full platform in a day. The interesting part isn't the ERP. It's the layer on top: Claude skills for design review, discovery question templates, documentation generation. The skills *are* the product. The ERP is proof the process works.
+I architected the system with ChatGPT. Talked through the design on a walk, generated a `CLAUDE.md` file and an architecture doc, then used Claude to build the full platform in a day. The interesting part isn't the ERP. It's the layer on top: Claude skills for design review, discovery question templates, documentation generation. The skills *are* the product. The ERP is proof the process works.
 
-- **`/design-review`** — structured 10-section review before writing any code
-- **Discovery templates** — 80 questions across 12 categories for BOM and product scoping
-- **`/write-docs`** — auto-generates API reference, migration guides, and changelogs
+- **`/design-review`** structured 10-section review before writing any code
+- **Discovery templates** 80 questions across 12 categories for BOM and product scoping
+- **`/write-docs`** auto-generates API reference, migration guides, and changelogs
 
-The BOM rebuild is the clearest example. I gave Claude context on typical BOM structures and manufacturing processes, gave it skills around BOM information, and had it interview me about product workflows and configurations. Then it rebuilt the data model. Four hours from kickoff to a restructured, production-ready BOM system — work that would normally take a systems integrator weeks.
+The BOM rebuild is the clearest example. I gave Claude context on typical BOM structures and manufacturing processes, gave it skills around BOM information, and had it interview me about product workflows and configurations. Then it rebuilt the data model. Four hours from kickoff to a restructured, production-ready BOM system. Work that would normally take a systems integrator weeks.
 
 ## What It Does
 
 Eight integrated modules: Products & BOM, Quotes, Orders, Inventory, Purchasing, Manufacturing, Shipping, and Invoices. The full quote-to-order-to-ship workflow runs end to end.
 
-The BOM system is the deepest module — recursive multi-level BOMs with revision control, alternate components, CSV import with column auto-detection, and depth-first cost rollup through the full tree.
+The BOM system is the deepest module. Recursive multi-level BOMs with revision control, alternate components, CSV import with column auto-detection, and depth-first cost rollup through the full tree.
 
 <div class="not-prose my-8">
   <img src="/images/work/ERPForge%20-%20BOM.png" alt="ERPForge BOM management interface" class="w-full rounded-xl border border-gray-100" />
@@ -55,13 +55,13 @@ The BOM system is the deepest module — recursive multi-level BOMs with revisio
 
 ## What's Actually Hard
 
-Cloud hosting was new territory for me — took a full day to get Railway + Cloudflare configured with containers, DNS, and security.
+Cloud hosting was new territory for me. Took a full day to get Railway + Cloudflare configured with containers, DNS, and security.
 
-The next challenge: turning manual skills into automated agent workflows. Right now, Claude follows the skills when I prompt it. The goal is a system that runs the full interview → build → iterate loop without manual orchestration. That's the difference between "I can build an ERP fast" and "anyone with domain knowledge can."
+The next challenge: turning manual skills into automated agent workflows. Right now, Claude follows the skills when I prompt it. The goal is a system that runs the full interview, build, and iterate loop without manual orchestration. That's the difference between "I can build an ERP fast" and "anyone with domain knowledge can."
 
 ## What This Proves (So Far)
 
-A domain expert with the right AI workflow can stand up a realistic manufacturing ERP in days. But the bigger bet isn't one ERP — it's whether the skills and templates that built this one can build the next one faster, and eventually build themselves.
+A product leader with the right AI workflow can stand up a realistic manufacturing ERP in days. But the bigger bet isn't one ERP. It's whether the skills and templates that built this one can build the next one faster, and eventually build themselves.
 
 ## Try It
 
