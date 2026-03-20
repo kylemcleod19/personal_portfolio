@@ -7,6 +7,7 @@ const work = defineCollection({
     description: z.string(),
     pubDate: z.date(),
     cover: z.string().optional(),
+    showCoverOnPage: z.boolean().default(true),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     outcome: z.string().optional(),

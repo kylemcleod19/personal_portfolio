@@ -12,7 +12,7 @@ const entry = await getEntry('work', slug as string);
 if (!entry) return Astro.redirect('/work');
 
 const { Content } = await entry.render();
-const { title, description, tags, cover, outcome, role, duration, pubDate } = entry.data;
+const { title, description, tags, cover, showCoverOnPage, outcome, role, duration, pubDate } = entry.data;
 ---
 
 <BaseLayout title={`${title} — Your Name`} description={description} ogImage={cover}>
@@ -56,7 +56,7 @@ const { title, description, tags, cover, outcome, role, duration, pubDate } = en
     </header>
 
     <!-- Cover image -->
-    {cover && (
+    {cover && showCoverOnPage && (
       <div class="rounded-2xl overflow-hidden mb-12 bg-gray-50 aspect-video">
         <img src={cover} alt={title} class="w-full h-full object-cover" />
       </div>

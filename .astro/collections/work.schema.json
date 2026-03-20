@@ -29,6 +29,10 @@
         "cover": {
           "type": "string"
         },
+        "showCoverOnPage": {
+          "type": "boolean",
+          "default": true
+        },
         "tags": {
           "type": "array",
           "items": {
