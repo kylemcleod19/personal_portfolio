@@ -1,43 +1,52 @@
 ---
 title: "Barbarians at the Gates"
-description: "AI development tools are the new leverage — they won't topple every software moat, but they change who gets to attack."
+description: "AI development tools are the new leverage. They won't topple every software moat, but they change who gets to attack."
 pubDate: 2026-03-20
 tags: ["AI Development", "Product Strategy"]
 draft: false
 ---
 
+import BarbarianComparison from "../../components/BarbarianComparison";
+import LeverageShift from "../../components/LeverageShift";
+
 ## The Original Barbarians
 
-In the 1980s, leveraged buyouts changed who could buy companies. The deals weren't new — the leverage was. Firms that had no business acquiring billion-dollar companies suddenly could, because new financial instruments gave them access to capital that previously required decades of accumulated wealth.
+In 1988, KKR bought RJR Nabisco for $25 billion. They didn't know how to run a tobacco-and-food conglomerate. They didn't need to.
 
-Most of those firms weren't better operators. Many failed. But enough succeeded to permanently change how corporate America thought about defensibility. The moat wasn't ownership anymore — it was operations.
+What made the deal possible wasn't operational expertise. It was a new class of financial instrument. Michael Milken's junk bond network gave firms like KKR access to capital structures that turned $15 million in equity into multi-billion-dollar acquisitions. The leverage ratio was absurd. The playbook was simple: find an undervalued company, load it with debt, extract value.
 
-The same thing is happening to software.
+Most of those firms weren't better operators. Many failed. But enough succeeded to permanently change how corporate America thought about defensibility. The moat wasn't ownership anymore. It was whether you could actually run the business once you had it.
+
+<BarbarianComparison
+  client:load
+  title="The Parallel"
+  rows={[
+    { dimension: "Weapon", lbo: "Junk bonds & layered debt", ai: "AI dev tools (Cursor, Claude, v0)" },
+    { dimension: "Barrier they broke", lbo: "Capital requirements", ai: "Engineering team requirements" },
+    { dimension: "Why incumbents dismissed them", lbo: "\"They can't operate\"", ai: "\"They can't ship production software\"" },
+    { dimension: "What actually mattered", lbo: "Could you run the business?", ai: "Can you sell, scale, and support it?" },
+    { dimension: "Success rate", lbo: "Most failed. Enough succeeded.", ai: "Most will fail. Enough will succeed." },
+  ]}
+/>
 
 ## The New Leverage
 
-AI development tools — Lovable, Cursor, Claude, v0 — are doing to software what junk bonds did to acquisitions. They're not making everyone a software engineer. They're giving people who understand business logic the leverage to build without one.
+AI development tools (Lovable, Cursor, Claude, v0) are doing to software what junk bonds did to acquisitions. They're not making everyone a software engineer. They're giving people who understand business logic the ability to build without one.
 
-That distinction matters. The bottleneck in most SaaS platforms was never the individual transaction logic — it's straightforward. The complexity is in encoding thousands of business rules, edge cases, and operational workflows into code. That required teams of engineers who often didn't fully understand the domain, translating requirements from people who did.
+That distinction matters. The bottleneck in most SaaS platforms was never the individual transaction logic. It's straightforward. The complexity is in encoding thousands of business rules, edge cases, and operational workflows into code. That required teams of engineers who often didn't fully understand the domain, translating requirements from people who did.
 
 Now the people who understand the business logic can write the rules themselves. Not all of them. Not perfectly. But enough to get 70% of the way to a working platform in days instead of months.
 
 And that changes the math on whether to attempt the other 30%.
 
-## What's Actually at Risk
-
-Not everything. Large codebases built on simple individual transactions but layered with operational complexity — quoting engines, workflow automation, approval routing, marketplace matching — these are the castles with thinner walls than their owners think.
-
-The moat was never the code. It was the cost and time required to replicate the code. When that drops by an order of magnitude, the moat is suddenly just the business logic — and the attacker might understand that better than the incumbent's engineering team does.
-
 ## What Still Holds
 
 Distribution. Sales teams. Network effects. Regulatory compliance. Data moats built on years of customer activity. DevOps at scale. None of these get easier because someone can prompt their way to a working prototype.
 
-The barbarians of the 1980s still had to operate the companies they bought. Many couldn't. The same will be true here — building the platform is becoming the easy part. Running it, selling it, and scaling it still require everything it always did.
+The barbarians of the 1980s still had to operate the companies they bought. Many couldn't. Building the platform is becoming the easy part. Running it, selling it, and scaling it still require everything they always did.
 
 ## The Shift
 
-The original barbarians didn't win every deal. They didn't need to. They changed the game by making it possible to *try*. Incumbents who had coasted on the sheer difficulty of replication suddenly had to defend on merit.
+KKR didn't win every deal. They didn't need to. They changed the game by making it possible to *try*. Incumbents who had coasted on the sheer difficulty of replication suddenly had to defend on merit.
 
-That's where software is heading. AI tools won't topple every SaaS company. But they're about to change who gets to take a shot — and how many shots get taken.
+AI tools won't topple every SaaS company. But they're about to increase the number of credible attackers, lower the cost of each attempt, and expose which systems were only defensible because they were expensive to rebuild.
