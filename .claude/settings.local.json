@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /c/src/personal_portfolio -not -path */node_modules/* -type d)"
+      "Bash(find /c/src/personal_portfolio -not -path */node_modules/* -type d)",
+      "Bash(find C:srcpersonal_portfolio -type f \\\\\\(-name *.mdx -o -name *.md \\\\\\))"
     ]
   }
 }

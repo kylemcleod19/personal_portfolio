@@ -13,6 +13,8 @@ const work = defineCollection({
     outcome: z.string().optional(),
     role: z.string().optional(),
     duration: z.string().optional(),
+    learningQuestion: z.string().optional(),
+    primaryTools: z.array(z.string()).default([]),
   }),
 });
 
