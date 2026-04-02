@@ -20,6 +20,10 @@ const work = defineCollection({
       label: z.string(),
       status: z.enum(["done", "active", "planned"]),
     })).default([]),
+    features: z.array(z.object({
+      label: z.string(),
+      status: z.enum(["done", "active", "planned"]),
+    })).default([]),
   }),
 });
 

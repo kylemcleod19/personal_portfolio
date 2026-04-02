@@ -79,52 +79,40 @@ const featuredWork = workEntries
               <span class="text-gray-300 group-hover:text-gray-600 transition-colors shrink-0">→</span>
             </div>
 
-            <!-- Body: question + result, equal weight -->
-            <div class="grid grid-cols-2 gap-6">
-              <!-- Exploring -->
-              <div class="flex flex-col gap-1.5">
-                <div class="flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                  <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Exploring</span>
-                </div>
-                <p class="text-sm font-medium text-gray-900 leading-snug">
-                  {entry.data.learningQuestion ?? entry.data.description}
-                </p>
+            <!-- Exploring -->
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Exploring</span>
               </div>
-
-              <!-- Result -->
-              <div class="flex flex-col gap-1.5 border-l border-gray-100 pl-6">
-                <div class="flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-500"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Result</span>
-                </div>
-                <p class="text-sm font-medium text-sky-600 leading-snug">
-                  {entry.data.outcome ?? "In progress"}
-                </p>
-              </div>
+              <p class="text-sm font-medium text-gray-900 leading-snug">
+                {entry.data.learningQuestion ?? entry.data.description}
+              </p>
             </div>
 
-            <!-- Phase strip -->
-            {entry.data.phases.length > 0 && (
-              <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 pt-3 border-t border-gray-100">
-                {entry.data.phases.map((phase: { label: string; status: "done" | "active" | "planned" }) => (
-                  <div class="flex items-center gap-1.5">
-                    {phase.status === "done" && (
-                      <svg width="8" height="8" viewBox="0 0 8 8" class="shrink-0 text-gray-400"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+            <!-- Feature chips -->
+            {entry.data.features.length > 0 && (
+              <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-gray-100">
+                {entry.data.features.map((feature: { label: string; status: "done" | "active" | "planned" }) => (
+                  <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${
+                    feature.status === "done" ? "bg-gray-50 text-gray-500 border-gray-200" :
+                    feature.status === "active" ? "bg-sky-50 text-sky-600 border-sky-100" :
+                    "bg-white text-gray-300 border-gray-100"
+                  }`}>
+                    {feature.status === "done" && (
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
                     )}
-                    {phase.status === "active" && (
+                    {feature.status === "active" && (
                       <span class="relative flex w-2 h-2 shrink-0">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full w-2 h-2 bg-sky-500"></span>
                       </span>
                     )}
-                    {phase.status === "planned" && (
+                    {feature.status === "planned" && (
                       <svg width="8" height="8" viewBox="0 0 8 8" class="shrink-0 text-gray-300"><circle cx="4" cy="4" r="3.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
                     )}
-                    <span class={`text-xs ${phase.status === "active" ? "text-sky-600 font-medium" : phase.status === "done" ? "text-gray-400" : "text-gray-300"}`}>
-                      {phase.label}
-                    </span>
-                  </div>
+                    {feature.label}
+                  </span>
                 ))}
               </div>
             )}
