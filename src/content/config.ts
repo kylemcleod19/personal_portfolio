@@ -15,6 +15,11 @@ const work = defineCollection({
     duration: z.string().optional(),
     learningQuestion: z.string().optional(),
     primaryTools: z.array(z.string()).default([]),
+    tools: z.array(z.string()).default([]),
+    phases: z.array(z.object({
+      label: z.string(),
+      status: z.enum(["done", "active", "planned"]),
+    })).default([]),
   }),
 });
 
