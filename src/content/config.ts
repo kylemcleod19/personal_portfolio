@@ -24,6 +24,7 @@ const work = defineCollection({
       label: z.string(),
       status: z.enum(["done", "active", "planned"]),
     })).default([]),
+    liveUrl: z.string().optional(),
   }),
 });
 
