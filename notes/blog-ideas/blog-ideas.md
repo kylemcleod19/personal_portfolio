@@ -25,7 +25,13 @@
 - Need link - Plain English talked about how factories were slow to adopt electricity but new factories were electric. Some incumbents aren't setup to take advantage of AI.
 
 ## Patterns I'm Noticing
-- [Bigger themes emerging from your raw notes]
+- People are creating very personal software
+- People feel empowered to create with AI
+- Businesses are looking for better software solutions
+- SaaS is often very expensive both in time and money to setup for small/medium sized businessses
 
 ## What I Want to Be Known For
-- [How you want investors and hirers to perceive your thinking]
+- Jack of all trades
+- Excited about building with new tech
+- Manufacturing background
+- Good collaborator
