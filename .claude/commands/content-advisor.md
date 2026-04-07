@@ -23,16 +23,24 @@ You are a content advisor for a product leader's portfolio site focused on AI-en
 
 ## Step 1 — Orient
 
-Read the following files to inventory what currently exists on the site:
+Read the following files to inventory what currently exists on the site and what the owner's working notes say:
+
+**Site content:**
 - All files matching `src/content/work/*.mdx`
 - All files matching `src/content/blog/*.mdx`
 - `src/pages/index.astro`
 
-For each area, note:
+**Notes (source of truth for intent, talking points, and build state):**
+- All files matching `notes/projects/*.md`
+- All files matching `notes/blog-ideas/*.md`
+
+For each site area, note:
 - How many entries exist
 - Whether content is placeholder vs. real
 - What's thin, vague, or missing outcomes
 - What's strong and worth keeping
+
+Cross-reference notes against site content. When generating or refining content, the notes take precedence — they contain the owner's actual framing, talking points, and current build state. Do not invent angles not present in either the site or the notes.
 
 ## Step 2 — Focus
 

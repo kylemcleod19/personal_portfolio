@@ -195,15 +195,22 @@ Read `$ARGUMENTS` and classify:
 
 Read all content files without outputting anything:
 
+**Site content:**
 - `src/pages/index.astro`
 - `src/pages/contact.astro`
 - All files matching `src/content/work/*.mdx`
 - All files matching `src/content/blog/*.mdx`
 
-For each piece of content, classify as:
+**Notes (use as calibration for what the owner actually believes, has built, and wants to communicate):**
+- All files matching `notes/projects/*.md`
+- All files matching `notes/blog-ideas/*.md`
+
+For each piece of site content, classify as:
 - **Real** — substantive, original content
 - **Placeholder** — template defaults, lorem ipsum, or obviously generic filler
 - **Thin** — real but lacking depth, specifics, or outcomes
+
+Use the notes to flag additional gaps: if the notes contain claims, talking points, or build state that would strengthen the site's credibility but aren't surfaced, treat those as gaps the personas would notice.
 
 ---
 

@@ -7,7 +7,7 @@ featured: true
 outcome: "8-module ERP live in ~3 days — March 2026"
 role: "Solo Builder. Claude skills + ChatGPT architecture"
 duration: "March 2026, ongoing"
-learningQuestion: "How much of a custom ERP could be built by agentic AI with an expert in the loop?"
+learningQuestion: "Can a product consultant's workflow be codified into AI skills, so each custom ERP builds faster than the last?"
 primaryTools: ["Claude Code", "Claude API"]
 tools: ["Claude Code", "Claude API", "ChatGPT", "Railway", "Cloudflare"]
 phases:
@@ -39,7 +39,9 @@ import BuildTimeline from '../../components/BuildTimeline.tsx';
 
 ## The Thesis Test
 
-A product leader with deep domain knowledge and the right AI workflow can compress months of requirements, architecture, and implementation into days. ERPForge tests the sharpest version of that. Can you codify the product process itself into reusable AI skills, so the next system builds faster than the last?
+The ERP is proof the process works. That was phase one.
+
+Phase two is the harder question: can a product consultant's workflow be codified into reusable AI skills? Discovery questions, design reviews, BOM interviews, spec generation. If yes, the next custom ERP builds faster than this one, and the one after that faster still. The skills become the product. The ERP is what they produce.
 
 ## The Problem
 
@@ -71,11 +73,15 @@ The BOM system is the deepest module. Recursive multi-level BOMs with revision c
 
 ## What's Actually Hard
 
-Cloud hosting was new territory for me. Took a full day to get Railway + Cloudflare configured with containers, DNS, and security.
+Cloud hosting was new territory. A full day to get Railway + Cloudflare configured with containers, DNS, and security.
 
-The next challenge: turning manual skills into automated agent workflows. Right now, Claude follows the skills when I prompt it. The goal is a system that runs the full interview, build, and iterate loop without manual orchestration. That's the difference between "I can build an ERP fast" and "anyone with domain knowledge can."
+That was the easy problem. The harder one is encoding a consultant's judgment. A good product consultant doesn't just ask questions, they know which questions unlock the right configuration, in what order, and how to translate the answer into an architecture decision. Turning that into skills Claude can run reliably requires getting explicit about knowledge that usually lives in someone's head. That's what skill authoring is actually about, and it's slower than writing code.
+
+The next milestone is automating the loop: full interview, build, and iteration without manual orchestration. That's the difference between "I can build an ERP fast" and "a product consultant with this tool can deliver a custom ERP to a manufacturer efficiently."
 
 ## What This Proves (So Far)
 
-A product leader with the right AI workflow can stand up a realistic manufacturing ERP in days. But the bigger bet isn't one ERP. It's whether the skills and templates that built this one can build the next one faster, and eventually build themselves.
+A product leader with the right AI workflow can stand up a realistic manufacturing ERP in days. Phase one is proven.
+
+Phase two is live now: skill authoring and building the platform layer that automates the consultant workflow. The bet is that the skills and templates used to build this ERP can build the next one faster, and that the gap between "expert needed" and "anyone with domain knowledge can" keeps closing.
 

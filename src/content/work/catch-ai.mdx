@@ -7,7 +7,7 @@ featured: true
 outcome: "Working demo in 4 hours, zero code. March 2026"
 role: "Solo Builder. Zero code written"
 duration: "March 2026, ongoing"
-learningQuestion: "How easy is it to set up a consumer app and build in agentic AI features?"
+learningQuestion: "What do you learn about AI-driven feature design when you build at full depth for a single user?"
 primaryTools: ["Lovable"]
 tools: ["Lovable", "Gemini API", "Supabase"]
 phases:
@@ -30,13 +30,15 @@ import BuildTimeline from '../../components/BuildTimeline.tsx';
 <BuildTimeline client:load milestones={[
   { phase: "Core App", description: "Voice logging, trip history, basic UI", stats: [{ value: "4 hrs", label: "build" }, { value: "~10", label: "prompts" }], done: true },
   { phase: "AI Speech-to-Structured-Data", description: "Natural voice input normalized into structured log entries", stats: [{ value: "30 min", label: "build" }, { value: "~4", label: "prompts" }], done: true },
-  { phase: "Key Integrations", description: "Google Maps, USGS Current and Historical Water Data", stats: [{ value: "2 hrs", label: "build" }, { value: "~10", label: "prompts" }], active: true },
+  { phase: "Key Integrations", description: "Google Maps, USGS Current and Historical Water Data, Weather Data", stats: [{ value: "2 hrs", label: "build" }, { value: "~10", label: "prompts" }], active: true },
   { phase: "AI Trip Planner", description: "Fishing assistant with access to your log history", stats: [{ value: "Planned", label: "" }] },
 ]} />
 
 ## The Thesis Test
 
-catch.ai tests how much product depth AI tools can deliver at prototype speed. Not just a demo with buttons. Real product decisions: which integrations matter, how to transform messy upstream data into user value, and where AI features add depth that would normally require dedicated engineering.
+AI has made a new class of software viable: apps built not for a market, but for one person's exact context and workflow. The economics never worked before. A fishing log app built for how I specifically think and fish wasn't worth building until now.
+
+But the more interesting finding isn't speed. It's what building at full depth for a single user teaches you about AI-driven feature design. How do you turn raw USGS flow data into a condition summary a fisherman can act on? How do you build voice input that produces a structured log without a form? These are the same problems SaaS teams face when building personalized features at scale, just faster and lower-stakes to work through here. catch.ai is a testbed for those patterns.
 
 ## The Problem
 
@@ -77,7 +79,9 @@ The pattern: core product logic is fast. Platform integrations, security, and up
 
 ## What This Proves (So Far)
 
-A product leader with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo. It's depth. Can you make real product decisions about external data integrations (USGS stream data into plain-language fishing conditions)? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require dedicated engineering?
+A product leader with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo. It's depth. Can you make real product decisions about external data integrations? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require dedicated engineering?
 
-Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes. That's where I'm pushing now.
+Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes.
+
+The broader connection: the patterns here — turning raw external data into user value through an AI layer, designing input flows around how a person actually works — show up in SaaS product design too. catch.ai and ERPForge are testing the same thesis at different scales. One is a personal app built for a single user. The other is a custom business system built for a specific manufacturer. Both are asking how far AI-driven feature design can go when you don't have to build for the average case.
 
