@@ -18,7 +18,7 @@
 | Hyper-Verticalized Saas is Coming | enterprise software will become more customizable as code gets cheaper to release | idea |
 | TBD | Parallels from electricity in factories to agentic development in companies | idea |
 | What is software in the future? | Does the AI become the software or are built out flows still important to users? | idea |
-| TBD | What does the software/product building process look like? What can AI do? | idea | 
+| TBD | What does the software/product building process look like? What can AI do? | outline | 
 
 ## Raw Notes / Things I'm Hearing
 - [04-06-2026] — [\[from Y Combinator podcast \]](https://open.spotify.com/episode/3diELGJzRyq8o9MuN3MHfl?si=H6P3l4RfQ4mBT5Pi2qyTpw&pi=-IUKVX_kQHOXN&t=1725) - will Segment eventually build a custom software for each customer? - analogous to building custom ERPs
