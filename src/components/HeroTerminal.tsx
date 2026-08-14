@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 const lines = [
   { icon: "✓", text: "Led product at MacroFab", accent: false },
   { icon: "✓", text: "Shipped AI features", accent: false },
-  { icon: "✓", text: "Defined AI-native product thesis", accent: false },
-  { icon: "▸", text: "Testing what's possible", accent: true },
+  { icon: "✓", text: "Built products with AI tools", accent: false },
+  { icon: "▸", text: "Testing what changes", accent: true },
 ];
 
 export default function HeroTerminal() {

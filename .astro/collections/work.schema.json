@@ -53,6 +53,76 @@
         "duration": {
           "type": "string"
         },
+        "learningQuestion": {
+          "type": "string"
+        },
+        "primaryTools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "done",
+                  "active",
+                  "planned"
+                ]
+              }
+            },
+            "required": [
+              "label",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "done",
+                  "active",
+                  "planned"
+                ]
+              }
+            },
+            "required": [
+              "label",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "default": []
+        },
+        "liveUrl": {
+          "type": "string"
+        },
         "$schema": {
           "type": "string"
         }
