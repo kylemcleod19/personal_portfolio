@@ -44,4 +44,8 @@
   .prose-portfolio blockquote {
     @apply border-l-4 border-accent-500 pl-4 italic text-gray-500 my-6;
   }
+
+  .prose-portfolio a {
+    @apply text-accent-600 underline underline-offset-2 decoration-accent-100 hover:text-accent-700 hover:decoration-accent-500 transition-colors;
+  }
 }
