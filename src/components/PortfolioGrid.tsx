@@ -32,7 +32,7 @@ export default function PortfolioGrid({ works, allTags }: Props) {
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
               activeTag === tag
                 ? 'bg-gray-900 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             {tag}
@@ -68,7 +68,7 @@ export default function PortfolioGrid({ works, allTags }: Props) {
                   {work.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                      className="text-xs font-medium bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full"
                     >
                       {tag}
                     </span>
@@ -77,7 +77,7 @@ export default function PortfolioGrid({ works, allTags }: Props) {
                 <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
                   {work.title}
                 </h3>
-                <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4">
+                <p className="text-sm text-gray-700 leading-relaxed line-clamp-2 mb-4">
                   {work.description}
                 </p>
                 {work.outcome && (
@@ -90,7 +90,7 @@ export default function PortfolioGrid({ works, allTags }: Props) {
       </motion.div>
 
       {filtered.length === 0 && (
-        <p className="text-gray-400 text-sm py-12 text-center">No work matching this filter.</p>
+        <p className="text-gray-500 text-sm py-12 text-center">No work matching this filter.</p>
       )}
     </div>
   );

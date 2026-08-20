@@ -57,7 +57,7 @@ export default function CompanyLogos() {
             />
             <span
               className={`text-xs transition-colors duration-200 ${
-                active === company.name ? "text-gray-900" : "text-gray-400"
+                active === company.name ? "text-gray-900" : "text-gray-500"
               }`}
             >
               {active === company.name ? "−" : "+"}
@@ -70,7 +70,7 @@ export default function CompanyLogos() {
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="text-sm text-gray-500 leading-relaxed mt-2 max-w-sm overflow-hidden"
+                className="text-sm text-gray-600 leading-relaxed mt-2 max-w-sm overflow-hidden"
               >
                 {company.description}
               </motion.p>

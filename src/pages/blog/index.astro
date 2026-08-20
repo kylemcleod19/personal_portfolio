@@ -12,11 +12,11 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month:
   <section class="max-w-3xl mx-auto px-6 pt-16 pb-24">
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-3">Blog</h1>
-      <p class="text-lg text-gray-500">Thoughts on product management, leadership, and building software.</p>
+      <p class="page-lead">Thoughts on product management, leadership, and building software.</p>
     </div>
 
     {posts.length === 0 ? (
-      <p class="text-gray-400">No posts yet — check back soon.</p>
+      <p class="text-gray-500">No posts yet — check back soon.</p>
     ) : (
       <ul class="divide-y divide-gray-100">
         {posts.map((post) => (
@@ -24,14 +24,14 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month:
             <a href={`/blog/${post.slug}`} class="group block">
               <div class="flex flex-wrap gap-2 mb-2">
                 {post.data.tags.map((tag) => (
-                  <span class="text-xs font-medium text-gray-400">{tag}</span>
+                  <span class="tag-label">{tag}</span>
                 ))}
               </div>
               <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-accent-600 transition-colors">
                 {post.data.title}
               </h2>
-              <p class="text-gray-500 text-sm mb-3">{post.data.description}</p>
-              <time class="text-xs text-gray-400">{fmt(post.data.pubDate)}</time>
+              <p class="text-gray-600 text-sm mb-3">{post.data.description}</p>
+              <time class="text-xs text-gray-500">{fmt(post.data.pubDate)}</time>
             </a>
           </li>
         ))}

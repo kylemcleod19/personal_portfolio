@@ -49,7 +49,7 @@ const quadrants: QuadrantInfo[] = [
 ];
 
 const costStyles: Record<QuadrantInfo["cost"], string> = {
-  Low: "bg-gray-100 text-gray-500",
+  Low: "bg-gray-100 text-gray-600",
   Moderate: "bg-amber-50 text-amber-600",
   High: "bg-orange-100 text-orange-600",
   "Very High": "bg-red-100 text-red-600",
@@ -59,7 +59,7 @@ export default function QuadrantDetails({ title }: { title?: string }) {
   return (
     <div className="my-10 not-prose font-sans">
       {title && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
+        <p className="diagram-eyebrow mb-5">
           {title}
         </p>
       )}
@@ -76,12 +76,12 @@ export default function QuadrantDetails({ title }: { title?: string }) {
             {/* Header */}
             <div>
               <p className="text-sm font-semibold text-gray-800">{q.name}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{q.subtitle}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{q.subtitle}</p>
             </div>
 
             {/* Cost */}
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 mb-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
                 Build Cost
               </p>
               <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${costStyles[q.cost]}`}>
@@ -91,7 +91,7 @@ export default function QuadrantDetails({ title }: { title?: string }) {
 
             {/* Benefits */}
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 mb-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
                 Benefits
               </p>
               <ul className="space-y-1">
@@ -106,12 +106,12 @@ export default function QuadrantDetails({ title }: { title?: string }) {
 
             {/* Constraints */}
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 mb-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
                 Constraints
               </p>
               <ul className="space-y-1">
                 {q.constraints.map((c) => (
-                  <li key={c} className="text-xs text-gray-500 flex gap-1.5 items-start">
+                  <li key={c} className="text-xs text-gray-600 flex gap-1.5 items-start">
                     <span className="text-gray-300 mt-0.5 shrink-0">–</span>
                     {c}
                   </li>
@@ -121,10 +121,10 @@ export default function QuadrantDetails({ title }: { title?: string }) {
 
             {/* Example */}
             <div className="mt-auto pt-1">
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 mb-1">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 mb-1">
                 Example
               </p>
-              <p className="text-xs text-gray-500 italic">{q.example}</p>
+              <p className="text-xs text-gray-600 italic">{q.example}</p>
             </div>
           </motion.div>
         ))}

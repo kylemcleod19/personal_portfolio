@@ -33,13 +33,13 @@ export default function LeverageShift({ title }: LeverageShiftProps) {
   return (
     <div className="my-8 not-prose">
       {title && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">{title}</p>
+        <p className="diagram-eyebrow mb-6">{title}</p>
       )}
 
       <div className="space-y-6">
         {/* Old Model */}
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Before: The Translation Gauntlet</p>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Before: The Translation Gauntlet</p>
           <div className="flex items-center gap-0 flex-wrap">
             {oldSteps.map((step, idx) => (
               <div key={idx} className="flex items-center">
@@ -50,8 +50,8 @@ export default function LeverageShift({ title }: LeverageShiftProps) {
                   transition={{ duration: 0.25, delay: idx * 0.06 }}
                   className="px-3 py-3 rounded-lg border border-gray-100 bg-white text-center min-w-[100px]"
                 >
-                  <p className="text-xs font-semibold text-gray-700 leading-tight">{step.label}</p>
-                  <p className="text-[10px] text-gray-400 mt-1 leading-tight">{step.sub}</p>
+                  <p className="text-xs font-semibold text-gray-800 leading-tight">{step.label}</p>
+                  <p className="text-[10px] text-gray-600 mt-1 leading-tight">{step.sub}</p>
                 </motion.div>
                 {idx < oldSteps.length - 1 && (
                   idx === barrierIndex ? (
@@ -67,7 +67,7 @@ export default function LeverageShift({ title }: LeverageShiftProps) {
               </div>
             ))}
           </div>
-          <p className="text-[10px] text-gray-400 mt-2 italic">Each arrow is a lossy translation. Meaning degrades at every handoff.</p>
+          <p className="text-[10px] text-gray-500 mt-2 italic">Each arrow is a lossy translation. Meaning degrades at every handoff.</p>
         </div>
 
         {/* Divider */}
@@ -91,10 +91,10 @@ export default function LeverageShift({ title }: LeverageShiftProps) {
                   }`}
                 >
                   <p className={`text-xs font-semibold leading-tight ${
-                    idx === 1 ? "text-sky-700" : "text-gray-700"
+                    idx === 1 ? "text-sky-700" : "text-gray-800"
                   }`}>{step.label}</p>
                   <p className={`text-[10px] mt-1 leading-tight ${
-                    idx === 1 ? "text-sky-500" : "text-gray-400"
+                    idx === 1 ? "text-sky-500" : "text-gray-600"
                   }`}>{step.sub}</p>
                 </motion.div>
                 {idx < newSteps.length - 1 && (

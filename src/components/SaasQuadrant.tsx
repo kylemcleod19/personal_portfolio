@@ -11,7 +11,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
   return (
     <div className="my-10 not-prose font-sans">
       {title && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
+        <p className="diagram-eyebrow mb-5">
           {title}
         </p>
       )}
@@ -27,7 +27,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
         >
           {isAfter ? "With AI" : "Before AI"}
         </span>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-500">
           {isAfter
             ? "Build cost still rises toward Adaptive Systems, but at a much lower rate"
             : "Build cost increases toward Adaptive Systems"}
@@ -40,7 +40,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
           <span className="text-xs font-semibold text-gray-600 [writing-mode:vertical-rl] rotate-180 tracking-wide">
             Bespoke
           </span>
-          <span className="text-xs font-semibold text-gray-400 [writing-mode:vertical-rl] rotate-180 tracking-wide">
+          <span className="text-xs font-semibold text-gray-500 [writing-mode:vertical-rl] rotate-180 tracking-wide">
             Productized
           </span>
         </div>
@@ -48,7 +48,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
         <div className="flex-1 min-w-0">
           {/* X-axis column headers */}
           <div className="grid grid-cols-2 mb-1.5">
-            <p className="text-xs font-semibold text-gray-400 text-center tracking-wide">
+            <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">
               Flexible
             </p>
             <p className="text-xs font-semibold text-gray-600 text-center tracking-wide">
@@ -67,8 +67,8 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
                 transition={{ duration: 0.3 }}
                 className="p-5 border-b border-r border-gray-200 bg-white min-h-[130px]"
               >
-                <p className="text-sm font-semibold text-gray-700">DIY Systems</p>
-                <p className="text-xs text-gray-400 mt-1 leading-snug">
+                <p className="text-sm font-semibold text-gray-800">DIY Systems</p>
+                <p className="text-xs text-gray-600 mt-1 leading-snug">
                   User-built, highly flexible. No enforced structure.
                 </p>
               </motion.div>
@@ -81,8 +81,8 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
                 transition={{ duration: 0.3, delay: 0.05 }}
                 className="p-5 border-b border-gray-200 bg-white min-h-[130px]"
               >
-                <p className="text-sm font-semibold text-gray-700">Adaptive Systems</p>
-                <p className="text-xs text-gray-400 mt-1 leading-snug">
+                <p className="text-sm font-semibold text-gray-800">Adaptive Systems</p>
+                <p className="text-xs text-gray-600 mt-1 leading-snug">
                   Custom-built, structured workflows.
                 </p>
                 <div
@@ -104,8 +104,8 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
                 transition={{ duration: 0.3, delay: 0.1 }}
                 className="p-5 border-r border-gray-200 bg-white min-h-[130px]"
               >
-                <p className="text-sm font-semibold text-gray-700">Tool Platforms</p>
-                <p className="text-xs text-gray-400 mt-1 leading-snug">
+                <p className="text-sm font-semibold text-gray-800">Tool Platforms</p>
+                <p className="text-xs text-gray-600 mt-1 leading-snug">
                   General-purpose, user-defined workflows.
                 </p>
               </motion.div>
@@ -118,8 +118,8 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
                 transition={{ duration: 0.3, delay: 0.15 }}
                 className="p-5 bg-white min-h-[130px]"
               >
-                <p className="text-sm font-semibold text-gray-700">Workflow Software</p>
-                <p className="text-xs text-gray-400 mt-1 leading-snug">
+                <p className="text-sm font-semibold text-gray-800">Workflow Software</p>
+                <p className="text-xs text-gray-600 mt-1 leading-snug">
                   Off-the-shelf, opinionated processes.
                 </p>
                 {!isAfter && (
@@ -143,7 +143,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
 
           {/* Cost legend */}
           <div className="flex items-center justify-end gap-2 mt-2">
-            <span className="text-[10px] text-gray-400">Build cost</span>
+            <span className="text-[10px] text-gray-500">Build cost</span>
             <div
               className="h-1.5 w-20 rounded-full"
               style={{
@@ -152,7 +152,7 @@ export default function SaasQuadrant({ era = "before", title }: SaasQuadrantProp
                   : "linear-gradient(to right, #fef3c7, #f97316)",
               }}
             />
-            <span className="text-[10px] text-gray-500 font-medium">
+            <span className="text-[10px] text-gray-600 font-medium">
               {isAfter ? "increasing (slower)" : "increasing"}
             </span>
           </div>

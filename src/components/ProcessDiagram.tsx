@@ -31,7 +31,7 @@ export default function ProcessDiagram({ steps, title }: Props) {
   return (
     <div className="my-8 not-prose">
       {title && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">{title}</p>
+        <p className="diagram-eyebrow mb-4">{title}</p>
       )}
       <div className="flex items-start gap-0">
         {steps.map((step, idx) => (
@@ -61,7 +61,7 @@ export default function ProcessDiagram({ steps, title }: Props) {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="text-xs text-gray-500 leading-relaxed overflow-hidden"
+                      className="text-xs text-gray-600 leading-relaxed overflow-hidden"
                     >
                       {step.description}
                     </motion.p>

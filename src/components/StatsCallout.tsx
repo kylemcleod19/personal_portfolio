@@ -35,7 +35,7 @@ export default function StatsCallout({ stats }: StatsCalloutProps) {
             className="p-5 rounded-xl border border-gray-100 bg-white text-center"
           >
             <p className="text-2xl font-bold text-sky-600 mb-1">{stat.value}</p>
-            <p className="text-xs text-gray-500 font-medium">{stat.label}</p>
+            <p className="text-xs text-gray-600 font-medium">{stat.label}</p>
           </motion.div>
         ))}
       </div>

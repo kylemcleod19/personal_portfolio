@@ -26,7 +26,7 @@ export default function BarbarianComparison({ rows, title }: BarbarianComparison
   return (
     <div className="my-8 not-prose">
       {title && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">{title}</p>
+        <p className="diagram-eyebrow mb-4">{title}</p>
       )}
       <div className="rounded-xl border border-gray-100 bg-white overflow-hidden">
         {/* Header */}
@@ -46,7 +46,7 @@ export default function BarbarianComparison({ rows, title }: BarbarianComparison
             aria-label={`${row.dimension}: ${row.lbo} versus ${row.ai}`}
           >
             <div className="p-4 font-medium text-gray-700">{row.dimension}</div>
-            <div className="p-4 text-gray-500 text-center">{row.lbo}</div>
+            <div className="p-4 text-gray-600 text-center">{row.lbo}</div>
             <div className="p-4 text-sky-700 text-center font-medium">{row.ai}</div>
           </motion.div>
         ))}

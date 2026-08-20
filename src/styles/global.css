@@ -14,6 +14,10 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
   }
+
+  p {
+    @apply text-gray-700;
+  }
 }
 
 @layer components {
@@ -30,11 +34,11 @@
   }
 
   .prose-portfolio p {
-    @apply text-gray-600 leading-relaxed mb-4;
+    @apply text-gray-700 leading-relaxed mb-4;
   }
 
   .prose-portfolio ul {
-    @apply list-disc pl-6 mb-4 text-gray-600;
+    @apply list-disc pl-6 mb-4 text-gray-700;
   }
 
   .prose-portfolio li {
@@ -42,10 +46,144 @@
   }
 
   .prose-portfolio blockquote {
-    @apply border-l-4 border-accent-500 pl-4 italic text-gray-500 my-6;
+    @apply border-l-4 border-accent-500 pl-4 italic text-gray-600 my-6;
   }
 
   .prose-portfolio a {
     @apply text-accent-600 underline underline-offset-2 decoration-accent-100 hover:text-accent-700 hover:decoration-accent-500 transition-colors;
+  }
+
+  /* Shared page container */
+  .section-container {
+    @apply max-w-5xl mx-auto px-6;
+  }
+
+  /* Small accent-colored text link */
+  .link-accent {
+    @apply text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors;
+  }
+
+  /* Generic pill badge (color set by an accompanying utility class) */
+  .badge {
+    @apply text-xs font-medium px-2.5 py-1 rounded-full border;
+  }
+
+  /* Work/track card (pair with "group" utility class for the arrow hover) */
+  .work-card {
+    @apply flex flex-col gap-4 border border-gray-100 rounded-xl px-6 py-5 hover:border-gray-300 hover:bg-gray-50/60 transition-all duration-200;
+  }
+
+  .work-card-title {
+    @apply text-sm font-semibold text-gray-900;
+  }
+
+  .work-card-arrow {
+    @apply text-gray-300 group-hover:text-gray-600 transition-colors shrink-0;
+  }
+
+  /* Tool chips on a work card */
+  .tool-chip {
+    @apply text-xs font-medium px-2 py-0.5 rounded-full border bg-gray-50 text-gray-500 border-gray-200;
+  }
+
+  .tool-chip-primary {
+    @apply bg-sky-50 text-sky-600 border-sky-100;
+  }
+
+  /* "Exploring" / "Results" labels on a work card */
+  .card-label {
+    @apply flex items-center gap-1.5 text-gray-500;
+  }
+
+  .card-label svg {
+    @apply shrink-0;
+  }
+
+  .card-label span {
+    @apply text-xs font-medium uppercase tracking-wide;
+  }
+
+  /* Feature status chips (done / active / planned) */
+  .feature-chip {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border;
+  }
+
+  .feature-chip-done {
+    @apply bg-gray-50 text-gray-600 border-gray-200;
+  }
+
+  .feature-chip-active {
+    @apply bg-sky-50 text-sky-600 border-sky-100;
+  }
+
+  .feature-chip-planned {
+    @apply bg-white text-gray-300 border-gray-100;
+  }
+
+  /* Diagram/section eyebrow label (margin set by caller) */
+  .diagram-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest text-gray-400;
+  }
+
+  /* Terminal-styled card shell (HeroTerminal, BuildTimeline) */
+  .terminal-card {
+    @apply rounded-xl border border-gray-200 bg-white p-6 font-mono text-sm shadow-sm;
+  }
+
+  .terminal-dots {
+    @apply flex items-center gap-1.5 mb-5;
+  }
+
+  .terminal-dot {
+    @apply w-2.5 h-2.5 rounded-full bg-gray-200;
+  }
+
+  .terminal-icon-active {
+    @apply text-accent-600 font-semibold;
+  }
+
+  .terminal-icon-done {
+    @apply text-green-600;
+  }
+
+  .terminal-label {
+    @apply text-gray-700;
+  }
+
+  .terminal-label-active {
+    @apply text-gray-900 font-medium;
+  }
+
+  .terminal-cursor {
+    @apply inline-block w-2 h-4 bg-accent-600 rounded-sm;
+  }
+
+  /* Back-to-index link (blog/work detail pages) */
+  .back-link {
+    @apply inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-10;
+  }
+
+  /* Page intro paragraph under an h1 */
+  .page-lead {
+    @apply text-lg text-gray-700;
+  }
+
+  /* Small text-only tag (no pill background) */
+  .tag-label {
+    @apply text-xs font-medium text-gray-500;
+  }
+
+  /* Meta bar dt/dd (work detail page) */
+  .meta-label {
+    @apply text-gray-500 font-medium mb-0.5;
+  }
+
+  .meta-value {
+    @apply text-gray-700;
+  }
+
+  /* Primary black CTA button (padding set by caller) */
+  .btn-primary {
+    @apply bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors;
   }
 }

@@ -10,12 +10,12 @@ const lines = [
 
 export default function HeroTerminal() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 font-mono text-sm shadow-sm">
+    <div className="terminal-card">
       {/* Title bar */}
-      <div className="flex items-center gap-1.5 mb-5">
-        <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-        <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-        <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
+      <div className="terminal-dots">
+        <span className="terminal-dot" />
+        <span className="terminal-dot" />
+        <span className="terminal-dot" />
       </div>
 
       {/* Log lines */}
@@ -31,8 +31,8 @@ export default function HeroTerminal() {
             <span
               className={
                 line.accent
-                  ? "text-accent-600 font-semibold"
-                  : "text-green-600"
+                  ? "terminal-icon-active"
+                  : "terminal-icon-done"
               }
             >
               {line.icon}
@@ -40,8 +40,8 @@ export default function HeroTerminal() {
             <span
               className={
                 line.accent
-                  ? "text-gray-900 font-medium"
-                  : "text-gray-600"
+                  ? "terminal-label-active"
+                  : "terminal-label"
               }
             >
               {line.text}
@@ -57,7 +57,7 @@ export default function HeroTerminal() {
                   duration: 0.6,
                   delay: 0.3 + lines.length * 0.4 + 0.3,
                 }}
-                className="inline-block w-2 h-4 bg-accent-600 rounded-sm"
+                className="terminal-cursor"
               />
             )}
           </motion.div>

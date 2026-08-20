@@ -28,12 +28,12 @@ interface BuildTimelineProps {
 export default function BuildTimeline({ milestones }: BuildTimelineProps) {
   return (
     <div className="my-10 not-prose">
-      <div className="rounded-xl border border-gray-200 bg-white p-6 font-mono text-sm shadow-sm">
+      <div className="terminal-card">
         {/* Title bar dots */}
-        <div className="flex items-center gap-1.5 mb-5">
-          <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-          <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-          <span className="w-2.5 h-2.5 rounded-full bg-gray-200" />
+        <div className="terminal-dots">
+          <span className="terminal-dot" />
+          <span className="terminal-dot" />
+          <span className="terminal-dot" />
         </div>
 
         {/* Timeline entries */}
@@ -49,21 +49,21 @@ export default function BuildTimeline({ milestones }: BuildTimelineProps) {
               {/* Phase line */}
               <div className="flex items-center gap-3">
                 {(milestone.active || milestone.done) && (
-                <span className={milestone.active ? "text-accent-600 font-semibold" : "text-green-600"}>
+                <span className={milestone.active ? "terminal-icon-active" : "terminal-icon-done"}>
                   {milestone.active ? "▸" : "✓"}
                 </span>
                 )}
                 {!milestone.active && !milestone.done && (
                 <span className="w-3" />
                 )}
-                <span className={milestone.active ? "text-gray-900 font-medium" : "text-gray-600"}>
+                <span className={milestone.active ? "terminal-label-active" : "terminal-label"}>
                   {milestone.phase}
                 </span>
 
                 {/* Inline stats */}
                 <span className="flex items-center gap-3 ml-auto">
                   {milestone.stats.map((stat, sIdx) => (
-                    <span key={sIdx} className="text-gray-400">
+                    <span key={sIdx} className="text-gray-500">
                       <span className="text-accent-600 font-semibold">{stat.value}</span>{" "}
                       {stat.label}
                     </span>
@@ -80,14 +80,14 @@ export default function BuildTimeline({ milestones }: BuildTimelineProps) {
                       duration: 0.6,
                       delay: milestones.length * 0.15 + 0.3,
                     }}
-                    className="inline-block w-2 h-4 bg-accent-600 rounded-sm"
+                    className="terminal-cursor"
                   />
                 )}
               </div>
 
               {/* Description */}
               <div className="ml-7 mt-0.5">
-                <span className="text-gray-400 text-xs">{milestone.description}</span>
+                <span className="text-gray-600 text-xs">{milestone.description}</span>
               </div>
             </motion.div>
           ))}

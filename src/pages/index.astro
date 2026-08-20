@@ -29,20 +29,20 @@ const tracks = [
 
 <BaseLayout title="Kyle McLeod — Product Leader & AI Builder">
   <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20">
+  <section class="section-container pt-24 pb-20">
     <p class="text-accent-600 font-medium mb-3 text-sm tracking-wide uppercase">Product Leader · AI Builder</p>
     <h1 class="text-5xl font-bold text-gray-900 leading-tight mb-8">
       The cost of building software has collapsed. I’m testing what that changes.
     </h1>
     <div class="grid md:grid-cols-2 gap-12 items-start">
       <div>
-        <p class="text-xl text-gray-500 leading-relaxed mb-10">
+        <p class="text-xl text-gray-700 leading-relaxed mb-10">
           I’ve spent 8+ years building products in complex operating environments. Now I’m using AI coding and analysis tools to test how far one product leader can go from idea to working software, what becomes possible when execution gets cheaper, and where the hard parts move.
         </p>
         <div class="flex items-center gap-4">
           <a
             href="/work"
-            class="bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+            class="btn-primary px-6 py-3"
           >
             Explore the builds →
           </a>
@@ -64,15 +64,15 @@ const tracks = [
 
   <!-- Learning Tracks -->
   {tracks.length > 0 && (
-    <section class="max-w-5xl mx-auto px-6 pb-24">
+    <section class="section-container pb-24">
       <div class="flex items-start justify-between gap-4 mb-12">
         <div>
           <h2 class="text-2xl font-bold text-gray-900 mb-3">Learning tracks</h2>
-          <p class="text-gray-500 leading-relaxed max-w-2xl">
+          <p class="text-gray-700 leading-relaxed max-w-2xl">
             Running two tracks at once. One tests whether one operator can ship real software with AI. The other tests whether the process of building software can itself be automated.
           </p>
         </div>
-        <a href="/work" class="text-sm font-medium text-accent-600 hover:text-accent-700 transition-colors shrink-0">
+        <a href="/work" class="link-accent shrink-0">
           View all →
         </a>
       </div>
@@ -81,40 +81,37 @@ const tracks = [
           <div>
             <div class="flex items-center flex-wrap gap-3 mb-1.5">
               <h3 class="text-lg font-semibold text-gray-900">{track.label}</h3>
-              <span class={`text-xs font-medium px-2.5 py-1 rounded-full border ${track.statusClass}`}>
+              <span class={`badge ${track.statusClass}`}>
                 {track.status}
               </span>
             </div>
-            <p class="text-sm text-gray-500 leading-relaxed mb-5 max-w-2xl">{track.blurb}</p>
+            <p class="text-sm text-gray-600 leading-relaxed mb-5 max-w-2xl">{track.blurb}</p>
             <div class={track.entries.length > 1 ? "grid md:grid-cols-2 gap-4" : "flex flex-col gap-4"}>
               {track.entries.map((entry) => {
                 const toolList = entry.data.tools.length > 0 ? entry.data.tools : entry.data.primaryTools;
                 return (
-                <a
-                  href={`/work/${entry.slug}`}
-                  class="group flex flex-col gap-4 border border-gray-100 rounded-xl px-6 py-5 hover:border-gray-300 hover:bg-gray-50/60 transition-all duration-200"
-                >
+                <a href={`/work/${entry.slug}`} class="group work-card">
                   <!-- Header: title + all tools (primary emphasized) + arrow -->
                   <div class="flex items-center justify-between gap-4">
                     <div class="flex items-center flex-wrap gap-2">
-                      <span class="text-sm font-semibold text-gray-400">{entry.data.title}</span>
+                      <span class="work-card-title">{entry.data.title}</span>
                       {toolList.map((tool: string) => {
                         const isPrimary = entry.data.primaryTools.includes(tool);
                         return (
-                          <span class={`text-xs font-medium px-2 py-0.5 rounded-full border ${isPrimary ? "bg-sky-50 text-sky-600 border-sky-100" : "bg-gray-50 text-gray-400 border-gray-200"}`}>
+                          <span class={`tool-chip ${isPrimary ? "tool-chip-primary" : ""}`}>
                             {tool}
                           </span>
                         );
                       })}
                     </div>
-                    <span class="text-gray-300 group-hover:text-gray-600 transition-colors shrink-0">→</span>
+                    <span class="work-card-arrow">→</span>
                   </div>
 
                   <!-- Exploring -->
                   <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center gap-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                      <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Exploring</span>
+                    <div class="card-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                      <span>Exploring</span>
                     </div>
                     <p class="text-sm font-medium text-gray-900 leading-snug">
                       {entry.data.learningQuestion ?? entry.data.description}
@@ -124,17 +121,13 @@ const tracks = [
                   <!-- Feature chips -->
                   {entry.data.features.length > 0 && (
                     <div class="flex flex-col gap-1.5">
-                    <div class="flex items-center gap-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Results</span>
+                    <div class="card-label">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Results</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
                       {entry.data.features.map((feature: { label: string; status: "done" | "active" | "planned" }) => (
-                        <span class={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${
-                          feature.status === "done" ? "bg-gray-50 text-gray-500 border-gray-200" :
-                          feature.status === "active" ? "bg-sky-50 text-sky-600 border-sky-100" :
-                          "bg-white text-gray-300 border-gray-100"
-                        }`}>
+                        <span class={`feature-chip feature-chip-${feature.status}`}>
                           {feature.status === "done" && (
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
                           )}
@@ -165,20 +158,20 @@ const tracks = [
 
   <!-- About strip -->
   <section class="bg-gray-50 py-20">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="section-container">
       <div>
         <h2 class="text-3xl font-bold text-gray-900 mb-4">About me</h2>
         <div class="max-w-3xl">
-          <p class="text-gray-500 leading-relaxed mb-4">
+          <p class="text-gray-700 leading-relaxed mb-4">
             I’m a product and strategy leader with a background in manufacturing, marketplaces, decision systems, and complex operational software.
           </p>
-          <p class="text-gray-500 leading-relaxed mb-4">
+          <p class="text-gray-700 leading-relaxed mb-4">
             After leading product at MacroFab, I began building applications with AI coding tools and testing how they change the path from product idea to working software. I’ve since applied those methods to personal builds and consulting work through Kedge Capital Partners.
           </p>
-          <p class="text-gray-500 leading-relaxed mb-4">
+          <p class="text-gray-700 leading-relaxed mb-4">
             This site is where I document the experiments, what they appear to show, and the parts that remain harder than expected.
           </p>
-          <p class="text-gray-500 leading-relaxed">
+          <p class="text-gray-700 leading-relaxed">
             When I'm not building, I'm probably fly fishing.
           </p>
         </div>
