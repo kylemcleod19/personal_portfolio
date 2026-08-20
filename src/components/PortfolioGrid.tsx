@@ -52,37 +52,43 @@ export default function PortfolioGrid({ works, allTags }: Props) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="group block bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-gray-300 hover:shadow-lg transition-shadow duration-300"
+              className="group block"
             >
-              {work.cover && (
-                <div className="aspect-video bg-gray-50 overflow-hidden">
-                  <img
-                    src={work.cover}
-                    alt={work.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {work.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-medium bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
-                  {work.title}
-                </h3>
-                <p className="text-sm text-gray-700 leading-relaxed line-clamp-2 mb-4">
-                  {work.description}
-                </p>
-                {work.outcome && (
-                  <p className="text-xs font-medium text-sky-600">{work.outcome}</p>
+              {/* Ink-edge treatment lives on this inner wrapper, not the
+                  motion.a above — Framer Motion drives that element's own
+                  `transform` for layout/scale animation, which would fight
+                  a CSS hover transform applied to the same element. */}
+              <div className="card-ink-edge rounded-2xl overflow-hidden">
+                {work.cover && (
+                  <div className="cover aspect-video bg-gray-50 overflow-hidden">
+                    <img
+                      src={work.cover}
+                      alt={work.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
+                <div className="p-6">
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {work.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs font-medium bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-sky-600 transition-colors">
+                    {work.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-2 mb-4">
+                    {work.description}
+                  </p>
+                  {work.outcome && (
+                    <p className="text-xs font-medium text-sky-600">{work.outcome}</p>
+                  )}
+                </div>
               </div>
             </motion.a>
           ))}

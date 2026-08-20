@@ -68,9 +68,10 @@
     @apply text-xs font-medium px-2.5 py-1 rounded-full border;
   }
 
-  /* Work/track card (pair with "group" utility class for the arrow hover) */
+  /* Work/track card layout (pair with .card-ink-edge for the visual treatment
+     and the "group" utility class for the arrow hover) */
   .work-card {
-    @apply flex flex-col gap-4 border border-gray-100 rounded-xl px-6 py-5 hover:border-gray-300 hover:bg-gray-50/60 transition-all duration-200;
+    @apply flex flex-col gap-4 rounded-xl px-6 py-5;
   }
 
   .work-card-title {
@@ -185,5 +186,33 @@
   /* Primary black CTA button (padding set by caller) */
   .btn-primary {
     @apply bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors;
+  }
+
+  /*
+   * "Ink Edge" card treatment — the one intentional shadow/motion exception
+   * in the design system. Hard-edged offset shadow, no blur, no color or
+   * fill change. Card slides into its own shadow on hover. Radius is set
+   * per-component (rounded-xl for writing rows, rounded-2xl for portfolio
+   * cards), not by this class.
+   */
+  .card-ink-edge {
+    @apply bg-white border border-gray-900;
+    box-shadow: 5px 5px 0 0 #111827;
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-ink-edge:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 0 #111827;
+  }
+
+  /* Cover image well, ink-edge portfolio cards only */
+  .card-ink-edge .cover {
+    @apply border-b border-gray-900;
+  }
+
+  /* Writing-index row, styled as an ink-edge card */
+  .writing-card {
+    @apply rounded-xl px-6 py-6;
   }
 }
