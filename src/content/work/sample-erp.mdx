@@ -1,0 +1,76 @@
+---
+title: "Sample ERP"
+description: "A manufacturing ERP built with Claude Code to test whether AI tools can hold to real architecture and engineering discipline, not just move fast."
+pubDate: 2026-03-20
+tags: ["AI Development", "Manufacturing", "ERP", "Architecture"]
+featured: true
+outcome: "8-module ERP live — March 2026"
+role: "Solo Builder. Claude Code + ChatGPT architecture"
+duration: "March 2026, ongoing"
+learningQuestion: "Can AI tools hold to real architecture and engineering discipline, not just move fast?"
+primaryTools: ["Claude Code", "Claude API"]
+tools: ["Claude Code", "Claude API", "ChatGPT", "Railway", "Cloudflare"]
+phases:
+  - { label: "Core Platform", status: "done" }
+  - { label: "BOM Rebuild via Discovery", status: "done" }
+  - { label: "Cloud Deployment", status: "done" }
+features:
+  - { label: "8-module ERP", status: "done" }
+  - { label: "BOM system", status: "done" }
+  - { label: "Cloud deployment", status: "done" }
+cover: "/images/work/ERP Forge - Menu.png"
+showCoverOnPage: false
+liveUrl: "https://sample-erp.kyle-mcleod.io"
+---
+
+import BuildTimeline from '../../components/BuildTimeline.tsx';
+
+<BuildTimeline client:load milestones={[
+  { phase: "Core Platform", description: "Full ERP scaffold: products, quotes, orders, inventory, manufacturing, shipping, invoices", stats: [{ value: "1 day", label: "build" }], done: true },
+  { phase: "BOM Rebuild via Discovery", description: "Gave Claude domain context and skills, had it interview me on workflows and BOM config, then rebuild the data model", stats: [{ value: "~4 hrs", label: "build" }], done: true },
+  { phase: "Cloud Deployment", description: "Railway + Cloudflare — containerized deploy, security, DNS", stats: [{ value: "1 day", label: "build" }], done: true },
+]} />
+
+## The Thesis Test
+
+Most of my AI builds test speed: how much can one person ship, how fast. Sample ERP tests the opposite constraint. Manufacturing ERPs are unforgiving of sloppy architecture. Bad data models compound. A BOM structure that's wrong at month one is expensive to unwind at month six. So the question here wasn't "how fast can Claude Code build this," it was "will it hold to real architecture and engineering discipline when the domain punishes shortcuts."
+
+## The Problem
+
+Traditional ERPs exist because code was expensive. Vendors built lowest-common-denominator software for a business segment, then tried to configure it per customer. Big customers got the most features. Small ones got the base package or cobbled together Excel and point solutions.
+
+At MacroFab, we built manufacturing workflows in-house because MRPs were expensive and slow to implement. The cost structure forced that tradeoff. Build it yourself or settle for software that doesn't match your operations.
+
+What if the cost structure changed, without giving up the rigor a real ERP needs?
+
+## The Approach
+
+I architected the system with ChatGPT first. Talked through the design on a walk, generated a `CLAUDE.md` file and an architecture doc, then used Claude Code to build the full platform. Architecture and data modeling decisions were made deliberately, before a line of code existed, the same way I'd scope a system for an engineering team.
+
+- **Architecture first:** hosting, data model, and UI guidelines decided via ChatGPT before touching Claude Code
+- **Plan mode:** used to turn general business context into a concrete build plan before generating code
+- **BOM rebuild via discovery:** gave Claude context on manufacturing BOM structures, then had it interview me on real workflows and rebuild the data model against those answers, not assumptions
+
+The BOM rebuild is the clearest example of the discipline this tests. Recursive multi-level BOMs, revision control, alternate components: this is exactly the kind of data model that breaks under a "just make it work" approach. Four hours from kickoff to a restructured, production-ready BOM system, built to hold up under the domain's real constraints, not just demo well.
+
+## What It Does
+
+Eight integrated modules: Products & BOM, Quotes, Orders, Inventory, Purchasing, Manufacturing, Shipping, and Invoices. The full quote-to-order-to-ship workflow runs end to end.
+
+The BOM system is the deepest module. Recursive multi-level BOMs with revision control, alternate components, CSV import with column auto-detection, and depth-first cost rollup through the full tree.
+
+<div class="not-prose my-8">
+  <img src="/images/work/ERPForge%20-%20BOM.png" alt="Sample ERP BOM management interface" class="w-full rounded-xl border border-gray-100" />
+</div>
+
+## What's Actually Hard
+
+Cloud hosting was new territory. A full day to get Railway + Cloudflare configured with containers, DNS, and security. That part had nothing to do with AI capability and everything to do with unfamiliar infrastructure.
+
+The harder question was whether Claude Code would cut corners on the data model once the domain got complicated. It didn't, but only because the architecture was scoped explicitly up front. Left to move fast on its own, AI tooling defaults to the quickest working version. Holding it to real engineering discipline took deliberate scoping, not just good prompts.
+
+## What This Proves (So Far)
+
+A product leader with the right process can direct AI tools to build a system that holds to real architectural discipline, not just a fast demo. The rigor came from explicit upfront scoping and discovery, not from the tooling doing it automatically.
+
+That raises the actual question I care about next: if the discipline lives in the process, not the tool, can that process itself be turned into something repeatable? That's what [ERPForge](/work/erpforge) is testing: whether the discovery-and-architecture workflow that made this build hold together can be codified into reusable skills, so the next system builds faster without losing the rigor.

@@ -1,87 +1,68 @@
 ---
 title: "ERPForge"
-description: "A manufacturing ERP built in days using Claude skills and AI workflows. Testing how domain expertise and AI-driven product processes compress the path from requirements to working system."
-pubDate: 2026-03-20
-tags: ["AI Development", "Manufacturing", "ERP"]
+description: "A platform that turns a product consultant's discovery process into reusable AI skills. Testing whether custom software can be produced by a repeatable software factory instead of a one-off build."
+pubDate: 2026-04-10
+tags: ["AI Development", "Manufacturing", "Agents"]
 featured: true
-outcome: "8-module ERP live in ~3 days — March 2026"
-role: "Solo Builder. Claude skills + ChatGPT architecture"
-duration: "March 2026, ongoing"
-learningQuestion: "Can a product consultant's workflow be codified into AI skills, so each custom ERP builds faster than the last?"
+outcome: "Working demo — April 2026"
+role: "Solo Builder. Claude skills + agent workflows"
+duration: "April 2026, ongoing"
+learningQuestion: "Can a product consultant's workflow be codified into AI skills, turning custom software delivery into a repeatable software factory?"
 primaryTools: ["Claude Code", "Claude API"]
-tools: ["Claude Code", "Claude API", "ChatGPT", "Railway", "Cloudflare"]
+tools: ["Claude Code", "Claude API", "Claude Skills"]
 phases:
-  - { label: "Core Platform", status: "done" }
-  - { label: "BOM Rebuild via Discovery", status: "done" }
-  - { label: "Cloud Deployment", status: "done" }
-  - { label: "Skill Authoring", status: "active" }
-  - { label: "Platform Builder", status: "planned" }
+  - { label: "Skill Authoring", status: "done" }
+  - { label: "Platform Builder", status: "active" }
 features:
-  - { label: "8-module ERP", status: "done" }
-  - { label: "BOM system", status: "done" }
-  - { label: "Cloud deployment", status: "done" }
-  - { label: "Skill authoring", status: "active" }
-  - { label: "Platform builder", status: "planned" }
-cover: "/images/work/ERP Forge - Menu.png"
+  - { label: "Discovery interview skill", status: "done" }
+  - { label: "Spec generation", status: "active" }
+  - { label: "Interview → build → iterate loop", status: "planned" }
 showCoverOnPage: false
-liveUrl: "https://sample-erp.kyle-mcleod.io"
+liveUrl: "https://erpforge.kyle-mcleod.io"
 ---
 
 import BuildTimeline from '../../components/BuildTimeline.tsx';
 
 <BuildTimeline client:load milestones={[
-  { phase: "Core Platform", description: "Full ERP scaffold: products, quotes, orders, inventory, manufacturing, shipping, invoices", stats: [{ value: "1 day", label: "build" }], done: true },
-  { phase: "BOM Rebuild via Discovery", description: "Gave Claude domain context and skills, had it interview me on workflows and BOM config, then rebuild the data model", stats: [{ value: "~4 hrs", label: "build" }], done: true },
-  { phase: "Cloud Deployment", description: "Railway + Cloudflare — containerized deploy, security, DNS", stats: [{ value: "1 day", label: "build" }], done: true },
-  { phase: "Skill Authoring", description: "Writing Claude skill files to codify ERP building workflows", stats: [{ value: "In progress", label: "" }], active: true },
-  { phase: "Platform Builder", description: "Automate the full interview → build → iterate loop", stats: [{ value: "Planned", label: "" }] },
+  { phase: "Skill Authoring", description: "Discovery interview and BOM/product scoping skills, codified from the process used to build Sample ERP", stats: [{ value: "Live", label: "" }], done: true },
+  { phase: "Platform Builder", description: "Automate the full interview → build → iterate loop so a spec becomes a working system without manual orchestration", stats: [{ value: "In progress", label: "" }], active: true },
 ]} />
 
 ## The Thesis Test
 
-The ERP is proof the process works. That was phase one.
+[Sample ERP](/work/sample-erp) proved a product leader with the right process can direct AI tools to build a system that holds to real architectural discipline. But the rigor lived in *me*: the discovery questions I knew to ask, the order I asked them in, the judgment calls translating answers into architecture decisions.
 
-Phase two is the harder question: can a product consultant's workflow be codified into reusable AI skills? Discovery questions, design reviews, BOM interviews, spec generation. If yes, the next custom ERP builds faster than this one, and the one after that faster still. The skills become the product. The ERP is what they produce.
+ERPForge is the harder question: can that judgment be codified into reusable AI skills, so the next custom system builds faster than the last, and the one after that faster still? If yes, the skills become the product. The ERP is just what they produce.
+
+I think of this as trying to build a software factory: not one custom ERP, but a repeatable line that takes a specific business's requirements in one end and turns out working software on the other, without a systems integrator standing in the middle for months. A factory doesn't get slower as it makes more units. The test is whether custom software delivery can work the same way.
 
 ## The Problem
 
 Traditional ERPs exist because code was expensive. Vendors built lowest-common-denominator software for a business segment, then tried to configure it per customer. Big customers got the most features. Small ones got the base package or cobbled together Excel and point solutions.
 
-At MacroFab, we built manufacturing workflows in-house because MRPs were expensive and slow to implement. The cost structure forced that tradeoff. Build it yourself or settle for software that doesn't match your operations.
-
-What if the cost structure changed?
+Custom systems, built to match how a specific business actually operates, used to require a systems integrator: weeks of discovery, a proposal, a build. The discovery process itself, knowing which questions unlock the right configuration, is where most of that time and cost goes.
 
 ## The Approach
 
-I architected the system with ChatGPT. Talked through the design on a walk, generated a `CLAUDE.md` file and an architecture doc, then used Claude to build the full platform in a day. The interesting part isn't the ERP. It's the layer on top: Claude skills for design review, discovery question templates, documentation generation. The skills *are* the product. The ERP is proof the process works.
+ERPForge is a set of Claude skills that encode a product consultant's discovery process, not a single ERP build:
 
 - **`/design-review`** structured 10-section review before writing any code
 - **Discovery templates** 80 questions across 12 categories for BOM and product scoping
 - **`/write-docs`** auto-generates API reference, migration guides, and changelogs
 
-The BOM rebuild is the clearest example. I gave Claude context on typical BOM structures and manufacturing processes, gave it skills around BOM information, and had it interview me about product workflows and configurations. Then it rebuilt the data model. Four hours from kickoff to a restructured, production-ready BOM system. Work that would normally take a systems integrator weeks.
+The BOM rebuild on Sample ERP is where this got tested first. I gave Claude context on typical BOM structures and manufacturing processes, gave it the discovery skill, and had it interview me about product workflows and configurations. It rebuilt the data model from those answers. Four hours from kickoff to a restructured, production-ready BOM system, work that would normally take a systems integrator weeks.
 
-## What It Does
-
-Eight integrated modules: Products & BOM, Quotes, Orders, Inventory, Purchasing, Manufacturing, Shipping, and Invoices. The full quote-to-order-to-ship workflow runs end to end.
-
-The BOM system is the deepest module. Recursive multi-level BOMs with revision control, alternate components, CSV import with column auto-detection, and depth-first cost rollup through the full tree.
-
-<div class="not-prose my-8">
-  <img src="/images/work/ERPForge%20-%20BOM.png" alt="ERPForge BOM management interface" class="w-full rounded-xl border border-gray-100" />
-</div>
+The demo at erpforge.kyle-mcleod.io runs that discovery-to-spec flow directly: it interviews a user about their manufacturing operation and produces a structured spec and BOM configuration, the same judgment calls I made manually on Sample ERP, run through the skill instead of through me.
 
 ## What's Actually Hard
 
-Cloud hosting was new territory. A full day to get Railway + Cloudflare configured with containers, DNS, and security.
+Encoding a consultant's judgment is slower than writing code. A good product consultant doesn't just ask questions, they know which questions unlock the right configuration, in what order, and how to translate the answer into an architecture decision. Getting explicit about knowledge that usually lives in someone's head, and reliable enough that Claude runs it consistently, is most of the actual work.
 
-That was the easy problem. The harder one is encoding a consultant's judgment. A good product consultant doesn't just ask questions, they know which questions unlock the right configuration, in what order, and how to translate the answer into an architecture decision. Turning that into skills Claude can run reliably requires getting explicit about knowledge that usually lives in someone's head. That's what skill authoring is actually about, and it's slower than writing code.
-
-The next milestone is automating the loop: full interview, build, and iteration without manual orchestration. That's the difference between "I can build an ERP fast" and "a product consultant with this tool can deliver a custom ERP to a manufacturer efficiently."
+The demo proves the discovery-to-spec flow works. It doesn't yet close the loop into a build. That's the next milestone: full interview, build, and iteration without manual orchestration in between.
 
 ## What This Proves (So Far)
 
-A product leader with the right AI workflow can stand up a realistic manufacturing ERP in days. Phase one is proven.
+The discovery skill reliably turns a structured interview into a usable spec. That's phase one, and it's live now. It's the input side of the factory: turning a business's specific requirements into something a build can run on, without me in the loop translating.
 
-Phase two is live now: skill authoring and building the platform layer that automates the consultant workflow. The bet is that the skills and templates used to build this ERP can build the next one faster, and that the gap between "expert needed" and "anyone with domain knowledge can" keeps closing.
+Phase two is closing the loop: automating interview → build → iterate so the skill doesn't just produce a spec, it produces a working system. That's the difference between "I can build an ERP fast" and an actual software factory, where a product consultant's tooling can deliver a custom ERP to a manufacturer without the delivery time growing with each new customer. The bet is that the gap between "expert needed" and "anyone with domain knowledge can" keeps closing as the skills get better.
 

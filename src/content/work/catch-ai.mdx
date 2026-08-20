@@ -1,25 +1,25 @@
 ---
 title: "catch.ai"
-description: "A fishing log app with voice-to-structured-data, external API integrations, and AI features. Built in 4 hours with zero code. Testing how much product depth AI tools can deliver at prototype speed."
+description: "A working fishing log and trip-planning app that combines traditional product workflows with voice, vision, conversational AI, maps, and live environmental data. I use it to practice directing AI development and test where AI features improve useful software."
 pubDate: 2026-03-18
-tags: ["AI Development", "No-Code Build", "Consumer"]
+tags: ["Applied Experiment", "Working Product", "AI-Assisted Development", "Personal Software", "External Data"]
 featured: true
-outcome: "Working demo in 4 hours, zero code. March 2026"
-role: "Solo Builder. Zero code written"
-duration: "March 2026, ongoing"
-learningQuestion: "What do you learn about AI-driven feature design when you build at full depth for a single user?"
+outcome: "Working personal product — actively used and developed"
+role: "Product lead and AI-directed builder"
+duration: "March 2026–present"
+learningQuestion: "What can a product leader learn by building and using a complete personal application with AI?"
 primaryTools: ["Lovable"]
 tools: ["Lovable", "Gemini API", "Supabase"]
 phases:
-  - { label: "Core App", status: "done" }
-  - { label: "AI Speech-to-Structured-Data", status: "done" }
-  - { label: "Key Integrations", status: "active" }
-  - { label: "AI Trip Planner", status: "planned" }
+  - { label: "Remember", status: "done" }
+  - { label: "Understand", status: "done" }
+  - { label: "Plan", status: "done" }
+  - { label: "Learn", status: "active" }
 features:
   - { label: "Voice logging", status: "done" }
-  - { label: "AI speech-to-data", status: "done" }
-  - { label: "USGS integration", status: "active" }
-  - { label: "AI trip planner", status: "planned" }
+  - { label: "AI trip planner", status: "done" }
+  - { label: "Live conditions", status: "done" }
+  - { label: "Tackle ID", status: "done" }
 cover: "/images/work/Catch App Home.png"
 showCoverOnPage: false
 liveUrl: "https://catchapp.kyle-mcleod.io"
@@ -28,60 +28,120 @@ liveUrl: "https://catchapp.kyle-mcleod.io"
 import BuildTimeline from '../../components/BuildTimeline.tsx';
 
 <BuildTimeline client:load milestones={[
-  { phase: "Core App", description: "Voice logging, trip history, basic UI", stats: [{ value: "4 hrs", label: "build" }, { value: "~10", label: "prompts" }], done: true },
-  { phase: "AI Speech-to-Structured-Data", description: "Natural voice input normalized into structured log entries", stats: [{ value: "30 min", label: "build" }, { value: "~4", label: "prompts" }], done: true },
-  { phase: "Key Integrations", description: "Google Maps, USGS Current and Historical Water Data, Weather Data", stats: [{ value: "2 hrs", label: "build" }, { value: "~10", label: "prompts" }], active: true },
-  { phase: "AI Trip Planner", description: "Fishing assistant with access to your log history", stats: [{ value: "Planned", label: "" }] },
+  { phase: "Remember", description: "Trip logging, saved spots, tackle catalog, and persistent drafts built for one-handed outdoor use", stats: [], done: true },
+  { phase: "Understand", description: "Maps, USGS flow, NOAA tides, and weather woven into spot and trip history", stats: [], done: true },
+  { phase: "Plan", description: "Conversational or guided trip planning grounded in real conditions and saved history", stats: [], done: true },
+  { phase: "Learn", description: "Using accumulated history to sharpen recommendations over time", stats: [], active: true },
 ]} />
+
+[See how the planner works →](#plan-workflow)
 
 ## The Thesis Test
 
-AI has made a new class of software viable: apps built not for a market, but for one person's exact context and workflow. The economics never worked before. A fishing log app built for how I specifically think and fish wasn't worth building until now.
+The original version of this page asked whether AI tools could produce product depth at prototype speed. That was the right question for a four-hour demo. It's not the right question anymore.
 
-But the more interesting finding isn't speed. It's what building at full depth for a single user teaches you about AI-driven feature design. How do you turn raw USGS flow data into a condition summary a fisherman can act on? How do you build voice input that produces a structured log without a form? These are the same problems SaaS teams face when building personalized features at scale, just faster and lower-stakes to work through here. catch.ai is a testbed for those patterns.
+catch.ai has become a real application I use every time I plan a trip: authentication, a proper data model, external integrations, a working mobile UI. The question worth asking now is what a product leader learns by building *and using* a complete personal application with AI, past the point where a demo has to hold up.
+
+The answer so far: AI is most useful inside traditional software when it translates ambiguous human input into structured action, synthesizes multiple sources of context, or helps a user make a decision. Everything around that still depends on ordinary product work — data models, integrations, permissions, reliability. That's a different, and more useful, finding than "AI can build a demo fast."
 
 ## The Problem
 
-Fishing trips generate useful data. Location, conditions, what worked, what didn't. I was tracking it across four tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and ChatGPT for pattern questions. Nothing connected. I couldn't find patterns across trips, and every spot looked the same in my memory.
+Fishing trips generate useful information. Where I went, what the conditions were, what worked. I was tracking it across four disconnected tools: handwritten notes, Google Maps pins, manually pulled USGS stream data, and a general AI chat for pattern questions. None of it added up to a usable history or a repeatable way to plan the next trip.
 
-## The Process
+catch.ai brings those pieces together. It records what happened, enriches each spot and trip with environmental context, and uses that history to help decide what to do next.
 
-I brainstorm on walks, talking through product thinking with ChatGPT. That produces a guidelines file. Design and architecture decisions captured before touching any build tool. From there: ~10 prompts to set up the core structure and speech-to-text tooling. Four hours from zero to a working demo.
+## The Core Loop: Remember → Understand → Plan
 
-- **Research & scoping:** ChatGPT for feature definition, API exploration, creative brainstorming
-- **Guidelines file:** Architecture and design decisions captured before touching Lovable
-- **Build:** Lovable for the full application. UI, backend, data layer. ~10 prompts to working app.
-- **Zero code written.** Every implementation decision was directed through prompts.
+**Remember.** Voice input converted into structured trip and catch records. Persistent drafts survive an interrupted session on the river. Catches link to species, tackle, and spots, and past trips edit through the same flow used to log a new one.
 
-## What It Does
-
-**Voice log to AI normalization.** Talk through a trip naturally. The app transcribes and normalizes it into a structured log entry: species, location, conditions, techniques, outcome. No forms.
-
-**AI suggestions.** A fishing assistant with access to your log history. More like a knowledgeable guide than a generic chatbot.
-
-**USGS data integration** *(in progress).* Raw API responses from USGS stream gauges translated into plain-language fishing condition summaries.
+**Understand.** Saved spots connect to map pins and the right USGS or NOAA stations. Flow, gage height, tide, and forecast data sit alongside each spot's trip history, so a spot means more than a pin on a map.
 
 <div class="not-prose grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
   <img src="/images/work/Catch%20App%20Voice%20Memo.png" alt="Voice memo feature" class="w-full rounded-xl border border-gray-100" />
   <img src="/images/work/Catch%20App%20Body%20of%20Water.png" alt="Body of water integration" class="w-full rounded-xl border border-gray-100" />
 </div>
 
+**Plan.** Start from a saved spot or describe a new trip conversationally. The app proposes grounded options, layers in conditions and forecast, generates a structured day plan, and saves it as an upcoming trip rather than leaving it in a chat window.
+
+<div id="plan-workflow" />
+
+## Inside the Trip Planner
+
+The planner isn't a chatbot bolted onto the app. It's a pattern worth more attention than the fishing use case: take an ambiguous goal, turn it into grounded options, let the user choose or refine, enrich the choice with real context, and convert the decision into a structured record the rest of the product can use.
+
+{/* TODO: screenshots of the conversational and guided planning paths once available */}
+
+The flow, in both entry points:
+
+1. The user states intent, either by describing a trip conversationally or picking a saved spot.
+2. AI proposes candidate options grounded against real place data, not generated coordinates.
+3. The user selects, rejects, or refines the set.
+4. The app pulls in live conditions, forecast, and (for saved spots) prior history.
+5. AI assembles a structured, time-blocked plan and saves it as a real trip record.
+
+The conversational path adds a step at the front, geocoding AI-suggested place names against a maps API rather than trusting generated coordinates directly. The guided path skips straight to structured selectors since the location is already known. Either way, the conversation is one part of the workflow. Maps, verified place data, environmental APIs, and the trip system of record do the rest.
+
+## Why This Matters for Commercial SaaS
+
+The pattern underneath the planner generalizes: **ambiguous intent → grounded options → human selection → external context → structured plan → persistent record.** That shows up constantly in commercial software, just with different nouns.
+
+<div class="not-prose overflow-x-auto my-8 rounded-xl border border-gray-100">
+  <table class="w-full text-sm text-left border-collapse">
+    <thead>
+      <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wide">
+        <th class="px-4 py-3 font-medium">catch.ai pattern</th>
+        <th class="px-4 py-3 font-medium">Underlying product capability</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-600">
+      <tr class="border-t border-gray-100">
+        <td class="px-4 py-3">User describes a trip conversationally</td>
+        <td class="px-4 py-3">Turning unstructured data into structured data</td>
+      </tr>
+      <tr class="border-t border-gray-100">
+        <td class="px-4 py-3">AI proposes fishing spot; user confirms</td>
+        <td class="px-4 py-3">Generate good suggestions from minimal inputs and confirm with human-in-the-loop</td>
+      </tr>
+      <tr class="border-t border-gray-100">
+        <td class="px-4 py-3">Combines stream flow, tide, and weather data into one view</td>
+        <td class="px-4 py-3">Contextualizing and combining data from multiple sources</td>
+      </tr>
+      <tr class="border-t border-gray-100">
+        <td class="px-4 py-3">Plan trip takes a combination of AI and structured inputs</td>
+        <td class="px-4 py-3">Presenting thoughtful input options serving users preferring forms and AI</td>
+      </tr>
+      <tr class="border-t border-gray-100">
+        <td class="px-4 py-3">AI generated trip plan gets saved as a trip record</td>
+        <td class="px-4 py-3">AI outputs are saved to structured data for easier future access and use</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The lesson isn't "add AI chat." It's: use conversation where the problem is unclear, structured UI where the domain is known, deterministic tools to verify hard facts, and external or historical data to ground the decision. Then save the result into the product's existing workflow instead of leaving it in the chat window.
+
+## From Four-Hour Demo to Working Product
+
+The first version of catch.ai took roughly four hours in Lovable and proved AI tools could move fast from product direction to a working interface. That was never the interesting part. The real work came after: rebuilding the data model, adding authentication and row-level security, integrating maps and environmental APIs, designing the mobile workflow, adding voice and vision features, and turning AI output into persistent product records.
+
+I still direct implementation almost entirely through AI tools. The experiment stopped being "can they generate a demo" a while ago. It's now whether I can use them to evolve a coherent product I actually rely on.
+
 ## What's Actually Hard
 
-The 4-hour demo proves the thesis directionally. But the edge cases reveal where AI tooling still has friction:
+**External data isn't product-ready data.** USGS, NOAA, and map services use different identifiers, coverage models, and failure modes. Making that useful took linking, caching, fallbacks, and plain-language interpretation, not just an API call.
 
-- **Maps integration:** Getting the UI right took more iteration than the core app logic.
-- **Safari microphone access:** Mobile browser permissions are a pain point that Lovable can't abstract away.
-- **Security:** Cloudflare configuration to prevent AI endpoint abuse required manual problem-solving outside the AI toolchain.
-- **USGS database:** The upstream data structure is messy. Harder to work with than expected, and not something prompts can easily fix.
+**AI suggestions need deterministic grounding.** The planner never trusts generated coordinates directly. It asks AI for a precise place name and resolves the pin with real geocoding. The same discipline matters anywhere a generated answer has to map to a real customer, SKU, or address.
 
-The pattern: core product logic is fast. Platform integrations, security, and upstream data quality are where the time goes.
+**Mobile platform details don't disappear.** Safari microphone permissions, safe areas, touch targets, and outdoor readability all needed direct attention. AI tooling doesn't remove platform constraints, it just moves them later.
 
-## What This Proves (So Far)
+**Security is still manual work.** Authentication, row-level security, and demo-data isolation are conventional, necessary, and occasionally in tension with legitimate AI and voice workflows.
 
-A product leader with AI tools can get to a working, deployed consumer app in an afternoon. But the more interesting question isn't speed to first demo. It's depth. Can you make real product decisions about external data integrations? Can you build transformation layers that interpret messy upstream data? Can you ship features like voice-to-structured-data that would normally require dedicated engineering?
+**Context has to be a system, not a prompt.** Planning quality depends on structured history, saved spots, and current conditions. Better prompts can't substitute for a coherent data model underneath them.
 
-Early answer: yes, with caveats. The core product logic and AI features are fast. Platform integrations, security, and upstream data quality are where the time goes.
+## What This Demonstrates (So Far)
 
-The broader connection: the patterns here — turning raw external data into user value through an AI layer, designing input flows around how a person actually works — show up in SaaS product design too. catch.ai and ERPForge are testing the same thesis at different scales. One is a personal app built for a single user. The other is a custom business system built for a specific manufacturer. Both are asking how far AI-driven feature design can go when you don't have to build for the average case.
+AI-assisted tools can help a product leader build and evolve a real application across multiple workflows, integrations, and AI modalities, not just a single demo screen.
 
+The most valuable AI features here weren't standalone chat experiences. They worked best turning unstructured input into structured data, helping navigate an ambiguous choice, or synthesizing context into a decision, then handing the user back to a normal product workflow.
+
+catch.ai doesn't demonstrate enterprise scale or that one person can replace a software team. What it shows is a practical way to build deep enough, on something I actually use, to test real product decisions and learn implementation patterns that carry over to commercial software.
