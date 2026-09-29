@@ -37,6 +37,15 @@
           "type": "boolean",
           "default": false
         },
+        "thread": {
+          "type": "string",
+          "enum": [
+            "practice",
+            "signals",
+            "building"
+          ],
+          "default": "signals"
+        },
         "cover": {
           "type": "string"
         },

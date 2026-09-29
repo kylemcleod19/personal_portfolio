@@ -3,7 +3,9 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export type ThreadKey = "building" | "signals" | "practice";
+import type { ThreadKey } from "./threads";
+
+export type { ThreadKey };
 
 export type Thumb =
   | { kind: "screen"; src: string; alt: string } // phone screenshot, bottom-aligned in an accent well
@@ -132,7 +134,7 @@ function useWidth<T extends HTMLElement>(fallback: number) {
 
 // ---------- Shared pieces ----------
 
-function NodeIcon({ k, size }: { k: ThreadKey; size: number }) {
+export function NodeIcon({ k, size }: { k: ThreadKey; size: number }) {
   const common = {
     width: size,
     height: size,

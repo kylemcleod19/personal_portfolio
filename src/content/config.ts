@@ -36,6 +36,8 @@ const blog = defineCollection({
     pubDate: z.date(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Which experimentation-loop thread the post belongs to (homepage loop + blog filters).
+    thread: z.enum(['practice', 'signals', 'building']).default('signals'),
     cover: z.string().optional(),
   }),
 });
