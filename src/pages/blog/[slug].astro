@@ -16,7 +16,7 @@ const { title, description, pubDate, tags } = post.data;
 const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
 
-<BaseLayout title={`${title} — Your Name`} description={description}>
+<BaseLayout title={title} description={description}>
   <article class="max-w-2xl mx-auto px-6 pt-16 pb-24">
     <a href="/blog" class="back-link">
       ← All posts

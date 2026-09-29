@@ -15,7 +15,7 @@ const { Content } = await entry.render();
 const { title, description, tags, cover, showCoverOnPage, outcome, role, duration, pubDate, liveUrl } = entry.data;
 ---
 
-<BaseLayout title={`${title} — Your Name`} description={description} ogImage={cover}>
+<BaseLayout title={title} description={description} ogImage={cover}>
   <article class="max-w-3xl mx-auto px-6 pt-16 pb-24">
     <!-- Back -->
     <a href="/work" class="back-link">
