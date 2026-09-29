@@ -3,46 +3,98 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import HeroTerminal from '../components/HeroTerminal.tsx';
 import CompanyLogos from '../components/CompanyLogos.tsx';
+import ExperimentLoop from '../components/ExperimentLoop.tsx';
+import type { LoopItem, LoopThread, Thumb } from '../components/ExperimentLoop.tsx';
 
-const workEntries = await getCollection('work');
-const catchEntry = workEntries.find((e) => e.slug === 'catch-ai');
-const sampleErpEntry = workEntries.find((e) => e.slug === 'sample-erp');
-const erpForgeEntry = workEntries.find((e) => e.slug === 'erpforge');
+const workEntries = (await getCollection('work'))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const tracks = [
+// Posts about method go under "How I practice"; everything else is a signal.
+const practiceSlugs = new Set(['tools-idea-to-working-software']);
+
+// Homepage-only presentation for each build: list thumbnail and status label.
+const buildDisplay: Record<string, { meta: string; thumb: Thumb }> = {
+  'catch-ai': { meta: 'Live', thumb: { kind: 'screen', src: '/images/work/Catch App Home.png', alt: 'catch.ai home screen' } },
+  'sample-erp': { meta: 'Live', thumb: { kind: 'stat', value: '8', label: 'modules' } },
+  'erpforge': { meta: 'Working demo', thumb: { kind: 'cover', src: '/images/work/ERPForge - BOM.png', alt: 'ERPForge BOM screen' } },
+};
+
+const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const day = (d: Date) => String(d.getUTCDate()).padStart(2, '0');
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+const buildItems: LoopItem[] = workEntries.map((entry) => {
+  const display = buildDisplay[entry.slug];
+  return {
+    title: entry.data.title,
+    blurb: entry.data.learningQuestion ?? entry.data.description,
+    href: `/work/${entry.slug}`,
+    meta: display?.meta ?? 'Build',
+    thumb: display?.thumb ?? (entry.data.cover
+      ? { kind: 'cover', src: entry.data.cover, alt: entry.data.title }
+      : { kind: 'date', month: monthYear(entry.data.pubDate), day: day(entry.data.pubDate) }),
+  };
+});
+
+const postItem = (post: (typeof posts)[number]): LoopItem => ({
+  title: post.data.title,
+  blurb: post.data.description,
+  href: `/blog/${post.slug}`,
+  meta: 'Essay',
+  thumb: { kind: 'date', month: monthYear(post.data.pubDate), day: day(post.data.pubDate) },
+});
+const signalItems = posts.filter((p) => !practiceSlugs.has(p.slug)).map(postItem);
+const practiceItems = posts.filter((p) => practiceSlugs.has(p.slug)).map(postItem);
+
+const threads: LoopThread[] = [
   {
-    label: 'Shipping AI-enabled software',
-    status: 'Live',
-    statusClass: 'bg-emerald-50 text-emerald-600 border-emerald-100',
-    blurb: 'Learn and test how to incorporate AI into software workflows, and practice vibe coding, by building real, working software with AI tools end to end.',
-    entries: [catchEntry, sampleErpEntry].filter((e) => e !== undefined),
+    key: 'building',
+    label: 'What I am building',
+    context: 'Real software, built with AI tools, to test whether the argument holds.',
+    count: plural(buildItems.length, 'build'),
+    items: buildItems,
+    allHref: '/work',
+    allLabel: 'All work',
   },
   {
-    label: 'Rebuilding the Product Development Lifecycle',
-    status: 'Working demo, pre-customer',
-    statusClass: 'bg-sky-50 text-sky-600 border-sky-100',
-    blurb: 'A blue-sky experiment: what parts of the product development lifecycle can actually be automated? Can you really build a software factory, and what systems would have to exist for that to be true?',
-    entries: [erpForgeEntry].filter((e) => e !== undefined),
+    key: 'signals',
+    label: 'Industry signals and thoughts',
+    context: 'What cheaper software does to moats, markets and who gets to build.',
+    count: plural(signalItems.length, 'essay'),
+    items: signalItems,
+    allHref: '/blog',
+    allLabel: 'All writing',
   },
-].filter((track) => track.entries.length > 0);
+  {
+    key: 'practice',
+    label: 'How I practice',
+    context: 'How I scope, prompt, review and ship with AI tools, day to day.',
+    count: plural(practiceItems.length, 'post'),
+    items: practiceItems,
+    allHref: '/blog',
+    allLabel: 'All writing',
+  },
+];
 ---
 
-<BaseLayout title="Kyle McLeod — Product Leader & AI Builder">
+<BaseLayout title="Kyle McLeod · Product Leader & AI Builder" darkHeader>
   <!-- Hero -->
-  <section class="section-container pt-24 pb-20">
-    <p class="text-accent-600 font-medium mb-3 text-sm tracking-wide uppercase">Product Leader · AI Builder</p>
-    <h1 class="text-5xl font-bold text-gray-900 leading-tight mb-8">
-      The cost of building software has collapsed. I’m testing what that changes.
-    </h1>
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-      <div>
-        <p class="text-xl text-gray-700 leading-relaxed mb-10">
-          I’ve spent 8+ years building products in complex operating environments. Now I’m using AI coding and analysis tools to test how far one product leader can go from idea to working software, what becomes possible when execution gets cheaper, and where the hard parts move.
+  <section class="bg-gray-900">
+    <div class="max-w-6xl mx-auto px-6 pt-12 pb-16 md:pt-14 md:pb-16 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-14 items-center">
+      <div class="flex flex-col gap-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Product Leader · AI Builder</p>
+        <h1 class="text-[40px] sm:text-5xl lg:text-[56px] leading-[1.02] font-extrabold tracking-[-0.04em] text-white text-balance">
+          The cost of building software has collapsed. <span class="text-accent-400">I’m testing what that changes.</span>
+        </h1>
+        <p class="text-lg leading-relaxed text-gray-200 max-w-[520px] text-pretty">
+          I build real software with AI tools, then write about what it shows.
         </p>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
           <a
             href="/work"
-            class="btn-primary px-6 py-3"
+            class="bg-white text-gray-900 rounded-lg font-medium px-6 py-3 hover:bg-accent-100 transition-colors"
           >
             Explore the builds →
           </a>
@@ -50,7 +102,7 @@ const tracks = [
             href="https://www.linkedin.com/in/kyle--mcleod/"
             target="_blank"
             rel="noopener"
-            class="text-gray-600 font-medium hover:text-gray-900 transition-colors flex items-center gap-1"
+            class="text-gray-300 font-medium hover:text-white transition-colors"
           >
             Read what I'm learning →
           </a>
@@ -62,122 +114,34 @@ const tracks = [
     </div>
   </section>
 
-  <!-- Learning Tracks -->
-  {tracks.length > 0 && (
-    <section class="section-container pb-24">
-      <div class="flex items-start justify-between gap-4 mb-12">
-        <div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-3">Learning tracks</h2>
-          <p class="text-gray-700 leading-relaxed max-w-2xl">
-            Running two tracks at once. One tests whether one operator can ship real software with AI. The other tests whether the process of building software can itself be automated.
-          </p>
-        </div>
-        <a href="/work" class="link-accent shrink-0">
-          View all →
-        </a>
-      </div>
-      <div class="flex flex-col gap-14">
-        {tracks.map((track) => (
-          <div>
-            <div class="flex items-center flex-wrap gap-3 mb-1.5">
-              <h3 class="text-lg font-semibold text-gray-900">{track.label}</h3>
-              <span class={`badge ${track.statusClass}`}>
-                {track.status}
-              </span>
-            </div>
-            <p class="text-sm text-gray-600 leading-relaxed mb-5 max-w-2xl">{track.blurb}</p>
-            <div class={track.entries.length > 1 ? "grid md:grid-cols-2 gap-4" : "flex flex-col gap-4"}>
-              {track.entries.map((entry) => {
-                const toolList = entry.data.tools.length > 0 ? entry.data.tools : entry.data.primaryTools;
-                return (
-                <a href={`/work/${entry.slug}`} class="group card-ink-edge work-card">
-                  <!-- Header: title + all tools (primary emphasized) + arrow -->
-                  <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center flex-wrap gap-2">
-                      <span class="work-card-title">{entry.data.title}</span>
-                      {toolList.map((tool: string) => {
-                        const isPrimary = entry.data.primaryTools.includes(tool);
-                        return (
-                          <span class={`tool-chip ${isPrimary ? "tool-chip-primary" : ""}`}>
-                            {tool}
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <span class="work-card-arrow">→</span>
-                  </div>
-
-                  <!-- Exploring -->
-                  <div class="flex flex-col gap-1.5">
-                    <div class="card-label">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                      <span>Exploring</span>
-                    </div>
-                    <p class="text-sm font-medium text-gray-900 leading-snug">
-                      {entry.data.learningQuestion ?? entry.data.description}
-                    </p>
-                  </div>
-
-                  <!-- Feature chips -->
-                  {entry.data.features.length > 0 && (
-                    <div class="flex flex-col gap-1.5">
-                    <div class="card-label">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      <span>Results</span>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                      {entry.data.features.map((feature: { label: string; status: "done" | "active" | "planned" }) => (
-                        <span class={`feature-chip feature-chip-${feature.status}`}>
-                          {feature.status === "done" && (
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
-                          )}
-                          {feature.status === "active" && (
-                            <span class="relative flex w-2 h-2 shrink-0">
-                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                              <span class="relative inline-flex rounded-full w-2 h-2 bg-sky-500"></span>
-                            </span>
-                          )}
-                          {feature.status === "planned" && (
-                            <svg width="8" height="8" viewBox="0 0 8 8" class="shrink-0 text-gray-300"><circle cx="4" cy="4" r="3.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-                          )}
-                          {feature.label}
-                        </span>
-                      ))}
-                    </div>
-                    </div>
-                  )}
-                </a>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  )}
+  <!-- Experimentation loop -->
+  <section class="max-w-6xl mx-auto px-6 py-16 md:py-12">
+    <ExperimentLoop client:load threads={threads} />
+  </section>
 
   <!-- About strip -->
   <section class="bg-gray-50 py-20">
-    <div class="section-container">
-      <div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">About me</h2>
-        <div class="max-w-3xl">
-          <p class="text-gray-700 leading-relaxed mb-4">
-            I’m a product and strategy leader with a background in manufacturing, marketplaces, decision systems, and complex operational software.
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            After leading product at MacroFab, I began building applications with AI coding tools and testing how they change the path from product idea to working software. I’ve since applied those methods to personal builds and consulting work through Kedge Capital Partners.
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            This site is where I document the experiments, what they appear to show, and the parts that remain harder than expected.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            When I'm not building, I'm probably fly fishing.
-          </p>
-        </div>
-        <div class="mt-10 pt-8 border-t border-gray-200">
-          <CompanyLogos client:load />
-        </div>
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-extrabold tracking-[-0.03em] text-gray-900 mb-4">About me</h2>
+      <div class="max-w-3xl">
+        <p class="text-gray-700 leading-relaxed mb-4">
+          I’m a product and strategy leader with a background in manufacturing, marketplaces, decision systems, and complex operational software.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          I’ve spent 8+ years building products in complex operating environments. Now I’m using AI coding and analysis tools to test how far one product leader can go from idea to working software, what becomes possible when execution gets cheaper, and where the hard parts move.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          After leading product at MacroFab, I began building applications with AI coding tools and testing how they change the path from product idea to working software. I’ve since applied those methods to personal builds and consulting work through Kedge Capital Partners.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          This site is where I document the experiments, what they appear to show, and the parts that remain harder than expected.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          When I'm not building, I'm probably fly fishing.
+        </p>
+      </div>
+      <div class="mt-10 pt-8 border-t border-gray-200">
+        <CompanyLogos client:load />
       </div>
     </div>
   </section>

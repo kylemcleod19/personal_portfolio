@@ -241,3 +241,26 @@
     @apply rounded-xl px-6 py-6;
   }
 }
+
+/* Experimentation loop (homepage): row fade-in and pulses along diagram lanes */
+@keyframes kmIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes kmPulse {
+  0% { offset-distance: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.km-in {
+  animation: kmIn 350ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .km-in {
+    animation: none;
+  }
+}

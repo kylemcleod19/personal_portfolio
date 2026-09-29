@@ -5,12 +5,15 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  /** Dark header that blends into a dark hero (homepage). */
+  darkHeader?: boolean;
 }
 
 const {
   title,
   description = 'Product leader and AI builder testing how AI changes product development, what one person can build, and where faster execution still breaks.',
   ogImage = '/images/og-default.jpg',
+  darkHeader = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -44,20 +47,31 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
   </head>
   <body class="min-h-screen flex flex-col">
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-      <nav class="section-container py-4 flex items-center justify-between">
-        <a href="/" class="font-semibold text-lg text-gray-900 hover:text-accent-600 transition-colors">
+    <header
+      class:list={[
+        'sticky top-0 z-50 backdrop-blur-sm border-b',
+        darkHeader ? 'bg-gray-900/95 border-gray-800' : 'bg-white/80 border-gray-100',
+      ]}
+    >
+      <nav class:list={['py-4 flex items-center justify-between', darkHeader ? 'max-w-6xl mx-auto px-6' : 'section-container']}>
+        <a
+          href="/"
+          class:list={[
+            'font-semibold text-lg transition-colors',
+            darkHeader ? 'text-white hover:text-accent-400' : 'text-gray-900 hover:text-accent-600',
+          ]}
+        >
           Kyle McLeod
         </a>
-        <ul class="flex items-center gap-8 text-sm font-medium text-gray-700">
-          <li><a href="/work" class="hover:text-gray-900 transition-colors">Work</a></li>
-          <li><a href="/blog" class="hover:text-gray-900 transition-colors">Blog</a></li>
+        <ul class:list={['flex items-center gap-8 text-sm font-medium', darkHeader ? 'text-gray-300' : 'text-gray-700']}>
+          <li><a href="/work" class:list={['transition-colors', darkHeader ? 'hover:text-white' : 'hover:text-gray-900']}>Work</a></li>
+          <li><a href="/blog" class:list={['transition-colors', darkHeader ? 'hover:text-white' : 'hover:text-gray-900']}>Blog</a></li>
           <li>
             <a
               href="https://www.linkedin.com/in/kyle--mcleod/"
               target="_blank"
               rel="noopener"
-              class="btn-primary px-4 py-2"
+              class:list={[darkHeader ? 'text-accent-400 hover:text-accent-200 transition-colors' : 'btn-primary px-4 py-2']}
             >
               LinkedIn →
             </a>
