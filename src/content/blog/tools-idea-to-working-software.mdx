@@ -1,6 +1,6 @@
 ---
 title: "How I AI: My Product Development Playbook"
-description: "A running list of the tools I actually use to move from idea to shipped, AI-enabled software — the core stack and everything else I keep around it."
+description: "A running list of the tools I actually use to move from idea to shipped, AI-enabled software: the core stack and everything else I keep around it."
 pubDate: 2026-08-26
 tags: ["AI Development", "Workflow"]
 draft: false
@@ -32,15 +32,15 @@ These touch nearly every project, roughly in the order I use them, from a first 
 
 | Tool | How I use it |
 |---|---|
-| Claude & ChatGPT (chat) | Explore an idea, learn something unfamiliar, pressure-test my thinking, or talk it through in voice mode on a walk. Fast and low-friction, but not a source of truth — I validate anything that actually matters separately. |
+| Claude & ChatGPT (chat) | Explore an idea, learn something unfamiliar, pressure-test my thinking, or talk it through in voice mode on a walk. Fast and low-friction, but not a source of truth. I validate anything that actually matters separately. |
 | Claude Projects & ChatGPT Projects | Carry context across sessions on an ongoing product, research, or writing thread, so I'm not re-explaining the problem every time. Needs regular curation or the files go stale. |
-| Obsidian | Own, portable product artifacts — PRDs, decisions, assumptions, workflow docs — as plain markdown I can hand to any chat project or coding agent without translation. |
+| Obsidian | Own, portable product artifacts (PRDs, decisions, assumptions, workflow docs) as plain markdown I can hand to any chat project or coding agent without translation. |
 | Claude Code | Turn a spec into working software: frontend, backend, database, integrations, debugging, and reading an existing codebase. My primary coding agent, where most of the actual build time goes. |
 | Playwright + GitHub Actions | Run end-to-end tests on critical paths automatically as the app changes, confirming a workflow still runs correctly. Doesn't judge whether an AI output inside that workflow is any good. |
-| GitHub | Repos, version history, and connecting code to tests and deploys — standard infrastructure, not a differentiator. |
-| Supabase | App data, auth, and permissions for fast-moving builds — a good default when I don't need a custom relational model. |
+| GitHub | Repos, version history, and connecting code to tests and deploys. Standard infrastructure, not a differentiator. |
+| Supabase | App data, auth, and permissions for fast-moving builds. A good default when I don't need a custom relational model. |
 | PostgreSQL on Railway | Custom relational data for builds that outgrow Supabase's shape. |
-| Railway | Hosts frontend and backend services plus Postgres — takes a build from local prototype to something actually running. |
+| Railway | Hosts frontend and backend services plus Postgres. Takes a build from local prototype to something actually running. |
 | Claude API | Structured outputs, context-aware recommendations, and small agentic workflows inside the app itself. Claude Code builds the application; this is how AI ends up inside it. |
 
 ## Other tools
@@ -49,9 +49,9 @@ These get used situationally, as a secondary option, or as something that matter
 
 | Tool | How I use it |
 |---|---|
-| Codex | Secondary coding agent — a backup option alongside Claude Code, not a head-to-head comparison. |
-| Lovable | Rapid prototyping and fast UI iteration to test an AI-feature concept. Best when experimentation speed matters more than implementation control — not where I build production systems. |
-| Cloudflare | Domains and hosting for my blog and personal site — supporting infrastructure, not my main application platform. |
+| Codex | Secondary coding agent: a backup option alongside Claude Code, not a head-to-head comparison. |
+| Lovable | Rapid prototyping and fast UI iteration to test an AI-feature concept. Best when experimentation speed matters more than implementation control. Not where I build production systems. |
+| Cloudflare | Domains and hosting for my blog and personal site. Supporting infrastructure, not my main application platform. |
 | Custom GPTs | Packaged reusable context before Projects existed. Mostly replaced by Projects, since my context and files change over time in a way a packaged GPT doesn't handle well. |
 
 ## In practice: Sample ERP
@@ -68,7 +68,7 @@ Here's how that stack actually played out on one project, a sample ERP for small
 
 ## What I haven't solved: evaluation
 
-Playwright can tell me a workflow ran end to end and returned the right shape of data. It can't tell me whether an AI-generated recommendation is actually relevant, well-grounded, or better than it was before I changed a prompt. That's a different check, and I don't have a systematic way to do it yet — no Langfuse, no Braintrust, nothing like them in place.
+Playwright can tell me a workflow ran end to end and returned the right shape of data. It can't tell me whether an AI-generated recommendation is actually relevant, well-grounded, or better than it was before I changed a prompt. That's a different check, and I don't have a systematic way to do it yet: no Langfuse, no Braintrust, nothing like them in place.
 
 What I want to figure out: how to build a representative evaluation dataset, how to compare prompts or models against it, how to catch a quality regression before a user does, and how to weigh groundedness and relevance alongside the more familiar tradeoffs of latency and cost. This is the part of the workflow still running on judgment and spot-checking, and it's the next thing I want to fix.
 
