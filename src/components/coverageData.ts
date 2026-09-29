@@ -63,7 +63,7 @@ export const COMPANIES: Company[] = [
     id: "D",
     label: "Company D",
     persona: "Aerospace / defense supplier",
-    description: "Company A's regulatory weight, plus complex routings through CNC, heat treat and NDT.",
+    description: "Company A's regulatory weight, plus complex routings through CNC, heat treat, and NDT.",
     importance: [70, 65, 90, 90, 80, 40, 50, 80],
     color: "#15803d",
   },

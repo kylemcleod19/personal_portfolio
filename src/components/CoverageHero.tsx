@@ -115,7 +115,7 @@ export default function CoverageHero() {
     },
     {
       title: "Hyper-verticalized SaaS",
-      body: "The bet: software built around how this shop actually operates. This is what ERPForge is testing.",
+      body: "The bet: software built around how this shop actually operates.",
       color: rgb(TAILORED),
     },
   ];

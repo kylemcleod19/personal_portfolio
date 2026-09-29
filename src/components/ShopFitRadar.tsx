@@ -44,7 +44,7 @@ export default function ShopFitRadar({ mode, companyId = "B" }: ShopFitRadarProp
       : [
           { kind: "line" as const, color: NEED_INK, label: `${company.label} needs` },
           { kind: "dashed" as const, color: CURRENT, label: `Current: ${current.label.toLowerCase()}` },
-          { kind: "fill" as const, color: WORKAROUND, label: "Filled with Airtable, Retool and spreadsheets" },
+          { kind: "fill" as const, color: WORKAROUND, label: "Filled with Airtable, Retool, and spreadsheets" },
         ];
 
   return (
