@@ -21,17 +21,29 @@ const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month:
       <ul class="flex flex-col gap-6">
         {posts.map((post) => (
           <li>
-            <a href={`/blog/${post.slug}`} class="group block card-ink-edge writing-card">
-              <div class="flex flex-wrap gap-2 mb-2">
-                {post.data.tags.map((tag) => (
-                  <span class="tag-label">{tag}</span>
-                ))}
+            <a href={`/blog/${post.slug}`} class="group flex gap-5 items-start card-ink-edge writing-card">
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap gap-2 mb-2">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag-label">{tag}</span>
+                  ))}
+                </div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-accent-600 transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-600 text-sm mb-3">{post.data.description}</p>
+                <time class="text-xs text-gray-500">{fmt(post.data.pubDate)}</time>
               </div>
-              <h2 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-accent-600 transition-colors">
-                {post.data.title}
-              </h2>
-              <p class="text-gray-600 text-sm mb-3">{post.data.description}</p>
-              <time class="text-xs text-gray-500">{fmt(post.data.pubDate)}</time>
+              {post.data.cover && (
+                <img
+                  src={post.data.cover}
+                  alt=""
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  class="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-lg border border-gray-100 bg-gray-50 p-1.5"
+                />
+              )}
             </a>
           </li>
         ))}

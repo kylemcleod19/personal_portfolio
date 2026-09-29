@@ -41,6 +41,10 @@
     @apply list-disc pl-6 mb-4 text-gray-700;
   }
 
+  .prose-portfolio ol {
+    @apply list-decimal pl-6 mb-4 text-gray-700;
+  }
+
   .prose-portfolio li {
     @apply mb-1;
   }
@@ -51,6 +55,27 @@
 
   .prose-portfolio a {
     @apply text-accent-600 underline underline-offset-2 decoration-accent-100 hover:text-accent-700 hover:decoration-accent-500 transition-colors;
+  }
+
+  .prose-portfolio table {
+    @apply w-full my-8 text-sm border-collapse block overflow-x-auto;
+  }
+
+  .prose-portfolio thead th {
+    @apply text-left font-semibold text-gray-900 px-4 py-3 border-b-2 border-gray-900 whitespace-nowrap;
+  }
+
+  .prose-portfolio tbody td {
+    @apply px-4 py-3 align-top text-gray-700 leading-relaxed border-b border-gray-100;
+  }
+
+  .prose-portfolio tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .prose-portfolio table td:first-child,
+  .prose-portfolio table th:first-child {
+    @apply font-semibold text-gray-900 whitespace-nowrap pr-6;
   }
 
   /* Shared page container */

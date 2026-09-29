@@ -36,6 +36,7 @@ const blog = defineCollection({
     pubDate: z.date(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    cover: z.string().optional(),
   }),
 });
 

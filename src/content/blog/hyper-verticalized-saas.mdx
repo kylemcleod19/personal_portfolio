@@ -1,12 +1,17 @@
 ---
 title: "The Case for Hyper-Verticalized SaaS"
 description: "B2B software is fragmenting. The cost barrier that forced buyers into generic tools is collapsing, and AI is what breaks it."
-pubDate: 2026-04-09
+pubDate: 2026-09-24
 tags: ["AI Development", "Product Strategy", "SaaS"]
 draft: false
+cover: "/images/blog/hyper-verticalized-saas.svg"
 ---
 
-import SaasQuadrant from "../../components/SaasQuadrant";
+import CoverageExplorer from "../../components/CoverageExplorer";
+import CoverageHero from "../../components/CoverageHero";
+import ShopFitRadar from "../../components/ShopFitRadar";
+
+<CoverageHero client:visible />
 
 ## Most B2B Software Is Generic by Necessity
 
@@ -14,41 +19,51 @@ For most of the last 20 years, the SaaS model worked like this: build once, sell
 
 That constraint shaped everything. Most B2B buyers learned to accept software that almost fit. They hired consultants to bridge the gap. They built spreadsheets to handle edge cases. They paid for features they didn't use and worked around the ones they needed.
 
-## A Framework for Thinking About It
+### An Illustration Using Sample Manufacturers
 
-Two axes matter when evaluating business software:
+Manufacturing makes this easy to see. The five shops below are composites of manufacturers I've worked with. All of them need MRP. They weight the same eight needs very differently.
 
-- **Bespoke vs. Productized:** Built specifically for this customer, or off-the-shelf?
-- **Flexible vs. Guided:** Does it enforce a workflow, or leave structure to the user?
+Three sample solutions solve the problems in different ways, but they have to target some average of customers.
 
-<SaasQuadrant client:load era="before" title="The SaaS Landscape" />
+<CoverageExplorer client:visible />
 
-Most enterprise SaaS lives in the bottom-right: Workflow Software. Productized and guided. Shopify, Salesforce, industry-specific ERPs. These are the systems that run most businesses.
+The scores are illustrative, but the pattern is familiar. One shop is the customer the category was built around. The rest are short where it matters most to them, or paying for capability they never use. The gap gets filled the same way every time: spreadsheets, consultants, and workarounds.
 
-The top-right quadrant — Adaptive Systems — is what every sophisticated buyer actually wants. Software that enforces structured workflows but is built specifically for how their business operates. Historically, only the largest enterprises could afford it. Everyone else compromised.
+## What Customers Want
 
-## The Precursor: Low-Code Tools
+Take Company B, the job shop. Nearly every job is quoted fresh, and capacity is daily triage across unlike machines. The best off-the-shelf product it can buy was built around a steady production schedule instead.
 
-The demand was always there. Retool and Airtable took this problem on.
+<ShopFitRadar client:visible mode="want" />
+
+A closer fit does two things. It covers the capabilities the shop actually runs on, here quoting and capacity planning. And it drops the ones it doesn't: a job shop has little use for deep traceability or formal quality documentation, but a general product charges for them anyway. Customers want the features they need, without paying for the ones they don't.
+
+### How They Fill the Gap Today
+
+When the software falls short, the need doesn't go away. It moves into Airtable, Retool and spreadsheets.
+
+<ShopFitRadar client:visible mode="gap" />
 
 At a $50M ARR manufacturing marketplace, we replaced purpose-built SaaS tools with Retool and Airtable workflows. Not because we preferred them. Because the off-the-shelf options didn't fit, and these let us build something closer to what we actually needed without a full engineering cycle.
 
 The result was clumsy. Retool requires a developer. Airtable breaks at scale. The UX is obviously stitched together. But we got workflows that matched our operations instead of the reverse.
 
-That's the demand signal. Companies will put up with clumsy tools to get something that fits. The question was always whether something cleaner was possible.
+Companies are already cobbling together whatever tools they can make work to fill in gaps left by under-verticalized SaaS. These tools prove the need and show a marker ripe for a better solution.
 
-## AI Changes the Build Economics
+### AI Changes the Build Economics
 
-The cost to move from productized to bespoke has dropped sharply. A small team can now build a guided, workflow-enforcing system tailored to a specific customer's operations at a fraction of what it cost three years ago.
+The cost to build software has dropped and is continuing to drop. Customer challenges are solvable at the right cost. As industries get closer to those costs, new solutions will be built, and we will see hyper-verticalized SaaS where solutions get closer to smaller segments of customers.
 
-This doesn't mean SaaS is going away. It means the category is fragmenting. Buyers who accepted generic tools because bespoke was unaffordable now have options. Builders who needed large engineering teams to serve them don't.
+What will happen:
+  
+1. The market will produce more tailored SaaS solutions
+1. Gap fillers (airtable and retool in above example) will be abandoned
+1. SaaS covering generic needs like accounting and sales will do fine
 
-The result is hyper-verticalization: software built for smaller and smaller customer segments, with tighter structural fit to how each segment actually operates. In the limit, personalization for each customer.
+I am not sure when it will happen or in what verticals it will start, but I am confident we will see this change.
 
-<SaasQuadrant client:load era="after" title="The Shift" />
+### Proving it
 
-## My Test
+I am testing out this trend in hypothesis in two ways. Firt, I have been consulting for companies like my examples on their SaaS software solutions. I have already seen companies eager to abandon a suite of tools for a hyper-verticalized option.
 
-I'm building ERPForge to test this directly. The hypothesis: an AI-assisted ERP that adapts to a specific company's operations, at a build cost that makes it viable for small and mid-sized manufacturers.
+Second, I am vibe coding and building the types of software I see companies desiring. I am finding out how quickly we can go from ideas to performant solutions and what techniques get us there. I have been excited by what I have been able to build, and I think this is a great future for builders and customers alike.
 
-Retool and Airtable took this problem on. The question is whether AI gets the rest of the way — where the new floor on build cost lands, and whether the resulting product is structurally strong enough to support real operations or just a cleaner version of the same clumsy workaround.

@@ -1,0 +1,79 @@
+---
+title: "How I AI: My Product Development Playbook"
+description: "A running list of the tools I actually use to move from idea to shipped, AI-enabled software — the core stack and everything else I keep around it."
+pubDate: 2026-08-26
+tags: ["AI Development", "Workflow"]
+draft: false
+---
+
+import BuildTimeline from '../../components/BuildTimeline.tsx';
+
+As a product leader, I've learned to solve real problems, not chase new tools for the sake of it. I took the same approach with AI, with one caveat: I've pushed myself to actually try new tools, even when I didn't see the exact problem they'd solve yet.
+
+That produced a set of tools that accumulated one at a time, each one solving a specific problem I ran into along the way. Below is what that's actually turned into, split into the tools I use on nearly every project and the tools I use more selectively.
+
+## How I decide what stays
+
+I have heard Teresa Torres describe a similarly practical approach to AI tools: use the ones that prove useful in your work, not the ones you're supposed to be using because you're in product. That's close to how I actually decide.
+
+Before a tool earns a permanent spot, I ask:
+
+- What job am I actually using it to do?
+- Does it materially improve speed, quality, or capability, not just novelty?
+- Can I inspect or validate what it produces?
+- Does it fit into the rest of my workflow, or does it live on an island?
+- Is the value bigger than the correction and maintenance cost it adds?
+
+Most tools fail one of the last two. They produce something I can't verify, or they solve a problem in isolation that then has to be manually reconciled with everything else I'm doing.
+
+## The core stack
+
+These touch nearly every project, roughly in the order I use them, from a first conversation to something running in production with AI inside it.
+
+| Tool | How I use it |
+|---|---|
+| Claude & ChatGPT (chat) | Explore an idea, learn something unfamiliar, pressure-test my thinking, or talk it through in voice mode on a walk. Fast and low-friction, but not a source of truth — I validate anything that actually matters separately. |
+| Claude Projects & ChatGPT Projects | Carry context across sessions on an ongoing product, research, or writing thread, so I'm not re-explaining the problem every time. Needs regular curation or the files go stale. |
+| Obsidian | Own, portable product artifacts — PRDs, decisions, assumptions, workflow docs — as plain markdown I can hand to any chat project or coding agent without translation. |
+| Claude Code | Turn a spec into working software: frontend, backend, database, integrations, debugging, and reading an existing codebase. My primary coding agent, where most of the actual build time goes. |
+| Playwright + GitHub Actions | Run end-to-end tests on critical paths automatically as the app changes, confirming a workflow still runs correctly. Doesn't judge whether an AI output inside that workflow is any good. |
+| GitHub | Repos, version history, and connecting code to tests and deploys — standard infrastructure, not a differentiator. |
+| Supabase | App data, auth, and permissions for fast-moving builds — a good default when I don't need a custom relational model. |
+| PostgreSQL on Railway | Custom relational data for builds that outgrow Supabase's shape. |
+| Railway | Hosts frontend and backend services plus Postgres — takes a build from local prototype to something actually running. |
+| Claude API | Structured outputs, context-aware recommendations, and small agentic workflows inside the app itself. Claude Code builds the application; this is how AI ends up inside it. |
+
+## Other tools
+
+These get used situationally, as a secondary option, or as something that mattered more before a core-stack tool replaced it.
+
+| Tool | How I use it |
+|---|---|
+| Codex | Secondary coding agent — a backup option alongside Claude Code, not a head-to-head comparison. |
+| Lovable | Rapid prototyping and fast UI iteration to test an AI-feature concept. Best when experimentation speed matters more than implementation control — not where I build production systems. |
+| Cloudflare | Domains and hosting for my blog and personal site — supporting infrastructure, not my main application platform. |
+| Custom GPTs | Packaged reusable context before Projects existed. Mostly replaced by Projects, since my context and files change over time in a way a packaged GPT doesn't handle well. |
+
+## In practice: Sample ERP
+
+Here's how that stack actually played out on one project, a sample ERP for small manufacturers:
+
+<BuildTimeline client:load milestones={[
+  { phase: "Chat: architecture & requirements", description: "Talked through the system architecture and module list in conversation before writing anything durable.", stats: [], done: true },
+  { phase: "Reference docs → Claude Code project", description: "Turned that conversation into reference documents and loaded them into the Claude Code project as context.", stats: [], done: true },
+  { phase: "Claude Code + Playwright", description: "Built the ERP locally with Claude Code, testing critical paths with Playwright as it went.", stats: [], done: true },
+  { phase: "Railway + Postgres", description: "Set up a Railway environment with a Postgres instance to move the build off my machine.", stats: [], done: true },
+  { phase: "Claude API: BOM imports", description: "Connected the Claude API to handle BOM imports inside the running app.", stats: [], done: true },
+]} />
+
+## What I haven't solved: evaluation
+
+Playwright can tell me a workflow ran end to end and returned the right shape of data. It can't tell me whether an AI-generated recommendation is actually relevant, well-grounded, or better than it was before I changed a prompt. That's a different check, and I don't have a systematic way to do it yet — no Langfuse, no Braintrust, nothing like them in place.
+
+What I want to figure out: how to build a representative evaluation dataset, how to compare prompts or models against it, how to catch a quality regression before a user does, and how to weigh groundedness and relevance alongside the more familiar tradeoffs of latency and cost. This is the part of the workflow still running on judgment and spot-checking, and it's the next thing I want to fix.
+
+## A snapshot, not a stack
+
+This isn't permanent. I expect individual tools here to change faster than the shape of the workflow underneath them does. What I'm more interested in is whether that shape, conversation to context to spec to build to test to deploy to AI-enabled product, keeps holding up as the tools change.
+
+Which AI tools have actually become part of your workflow, and which ones were impressive but didn't last?
