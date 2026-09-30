@@ -16,7 +16,7 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const navLinks = [
-  { href: '/work', label: 'Work' },
+  { href: '/work', label: 'Builds' },
   { href: '/blog', label: 'Writing' },
 ];
 const isActive = (href: string) => Astro.url.pathname.startsWith(href);

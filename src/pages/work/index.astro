@@ -1,33 +1,67 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PortfolioGrid from '../../components/PortfolioGrid';
 import { getCollection } from 'astro:content';
+import WorkIndex from '../../components/WorkIndex.tsx';
+import type { WorkBuild } from '../../components/WorkIndex.tsx';
 
-const entries = await getCollection('work');
-const works = entries
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((e) => ({
-    slug: e.slug,
-    title: e.data.title,
-    description: e.data.description,
-    tags: e.data.tags,
-    cover: e.data.cover ?? null,
-    outcome: e.data.outcome ?? null,
-    role: e.data.role ?? null,
-  }));
+// Oldest first so build numbers follow the order the builds started.
+const entries = (await getCollection('work'))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
-const allTags = ['All', ...Array.from(new Set(works.flatMap((w) => w.tags)))];
+// Work-index-only presentation for each build.
+const buildDisplay: Record<string, Pick<WorkBuild, 'scope' | 'status' | 'live' | 'cats' | 'desc' | 'img' | 'kind'>> = {
+  'catch-ai': {
+    scope: 'One app',
+    status: 'Live, in daily use',
+    live: true,
+    cats: ['Personal software'],
+    desc: 'A working fishing log and trip-planning app that combines product workflows with voice, vision, conversational AI, maps and live environmental data.',
+    img: '/images/work/Catch App Home.png',
+    kind: 'screen',
+  },
+  'sample-erp': {
+    scope: 'One system',
+    status: '8-module ERP live',
+    live: true,
+    cats: ['Manufacturing'],
+    desc: 'A manufacturing ERP built with Claude Code to test whether AI tools can hold to real architecture and engineering discipline.',
+    img: '/images/work/ERP Forge - Menu.png',
+    kind: 'cover',
+  },
+  'erpforge': {
+    scope: 'A factory',
+    status: 'Working demo',
+    live: false,
+    cats: ['Manufacturing', 'Agents'],
+    desc: "A platform that turns a product consultant's discovery process into reusable AI skills. The ERP is just what they produce.",
+    img: '/images/work/ERPForge - BOM.png',
+    kind: 'cover',
+  },
+};
+
+const builds: WorkBuild[] = entries
+  .map((entry, i) => {
+    const d = buildDisplay[entry.slug];
+    return {
+      slug: entry.slug,
+      title: entry.data.title,
+      href: `/work/${entry.slug}`,
+      n: String(i + 1).padStart(2, '0'),
+      date: entry.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' }),
+      question: entry.data.learningQuestion ?? entry.data.description,
+      tools: entry.data.tools.join(' · '),
+      scope: d?.scope ?? 'Build',
+      status: d?.status ?? 'Build',
+      live: d?.live ?? false,
+      cats: d?.cats ?? [],
+      desc: d?.desc ?? entry.data.description,
+      img: d?.img ?? entry.data.cover ?? '',
+      kind: d?.kind ?? 'cover',
+    };
+  })
+  .reverse();
 ---
 
-<BaseLayout title="Work" description="Case studies and product work.">
-  <section class="max-w-5xl mx-auto px-6 pt-16 pb-24">
-    <div class="mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 mb-3">Work</h1>
-      <p class="page-lead max-w-xl">
-        A selection of product work across growth, infrastructure, and consumer experiences.
-      </p>
-    </div>
-
-    <PortfolioGrid works={works} allTags={allTags} client:load />
-  </section>
+<BaseLayout title="Builds" description="Three builds, each asking a bigger version of the same question: what changes when building software gets cheap?">
+  <WorkIndex client:load builds={builds} />
 </BaseLayout>

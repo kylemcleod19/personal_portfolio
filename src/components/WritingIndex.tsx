@@ -328,11 +328,11 @@ export default function WritingIndex({ posts, buildTitles }: WritingIndexProps) 
                 <div className="flex flex-col gap-1.5">
                   <span className="text-lg font-bold tracking-tight text-gray-800">No build write-ups yet.</span>
                   <span className="text-[15px] leading-normal text-gray-600">
-                    {listJoin(buildTitles)} have case studies on the Work page.
+                    {listJoin(buildTitles)} have case studies on the Builds page.
                   </span>
                 </div>
                 <a href="/work" className="text-[15px] font-semibold text-accent-600 hover:text-accent-700 transition-colors">
-                  See the work →
+                  See the builds →
                 </a>
               </div>
             ) : (
