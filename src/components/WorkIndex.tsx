@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { useReducedMotion } from "framer-motion";
 
 export interface WorkBuild {
@@ -23,6 +24,15 @@ interface WorkIndexProps {
   builds: WorkBuild[]; // newest first; the scope graphic only renders for exactly three
 }
 
+const C = {
+  ink: "#111827",
+  gray200: "#e5e7eb",
+  gray300: "#d1d5db",
+  gray600: "#4b5563",
+  a400: "#38bdf8",
+  a500: "#0ea5e9",
+};
+
 const CATS = ["All", "Live", "Manufacturing", "Personal software", "Agents"] as const;
 type Cat = (typeof CATS)[number];
 
@@ -35,10 +45,13 @@ const CTX: Record<Exclude<Cat, "All">, string> = {
 
 const match = (b: WorkBuild, c: Cat) => c === "All" || (c === "Live" ? b.live : b.cats.includes(c));
 
-// Scope graphic lanes (480 x 330 canvas), from the Work Index v2 design. Node positions and
-// sizes, and the pulse paths along these lanes, live in global.css ("Builds scope graphic").
+// Scope graphic geometry (480 x 330), from the Work Index v2 design. Nodes grow with build scope.
+const NODES = [
+  { left: -10, top: 202, size: 56, font: 18 },
+  { left: 145, top: 142, size: 76, font: 24 },
+  { left: 320, top: 58, size: 104, font: 32 },
+];
 const LANES = ["M96.2 218.3L169.3 194.7", "M259.6 162.2L332.4 133"];
-const SCOPE_SLOTS = 3;
 
 function ScopeGraphic({
   builds,
@@ -60,17 +73,28 @@ function ScopeGraphic({
     <div className="relative w-[480px] h-[330px]">
       <svg width={480} height={330} viewBox="0 0 480 330" className="absolute inset-0" aria-hidden="true">
         <defs>
-          <marker id="heroArrowOn" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
-            <path d="M0 0L10 5L0 10z" className="hero-arrow-on" />
+          <marker id="wmOn" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+            <path d="M0 0L10 5L0 10z" fill={C.a400} />
           </marker>
-          <marker id="heroArrowOff" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
-            <path d="M0 0L10 5L0 10z" className="hero-arrow-off" />
+          <marker id="wmOff" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+            <path d="M0 0L10 5L0 10z" fill={C.gray600} />
           </marker>
         </defs>
-        {LANES.map((d, i) => (
-          <path key={d} d={d} className={`hero-lane${lit(i) ? " is-on" : ""}`} />
-        ))}
-        <path d="M24 318L456 318" className="scope-axis" />
+        {LANES.map((d, i) => {
+          const on = lit(i);
+          return (
+            <path
+              key={d}
+              d={d}
+              fill="none"
+              strokeWidth={1.5}
+              stroke={on ? C.a400 : C.gray600}
+              markerEnd={`url(#${on ? "wmOn" : "wmOff"})`}
+              style={{ transition: "stroke 200ms ease-out" }}
+            />
+          );
+        })}
+        <path d="M24 318L456 318" fill="none" strokeWidth={1} stroke="#1f2937" markerEnd="url(#wmOff)" />
       </svg>
       <span className="absolute right-6 top-[296px] text-xs font-semibold uppercase tracking-widest text-gray-600">
         Scope of the question
@@ -78,15 +102,41 @@ function ScopeGraphic({
 
       {!sel && !reduce && (
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          {LANES.map((d) => (
-            <div key={d} className="hero-pulse scope-pulse" />
+          {LANES.map((d, i) => (
+            <div
+              key={d}
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: 6,
+                height: 6,
+                borderRadius: 999,
+                background: C.a400,
+                offsetPath: `path('${d}')`,
+                offsetRotate: "0deg",
+                animation: `kmPulse 2000ms ease-in-out ${i * 1000}ms infinite both`,
+              }}
+            />
           ))}
         </div>
       )}
 
       {builds.map((b, i) => {
+        const n = NODES[i];
         const s = sel === b.slug;
-        const state = `${s ? " is-selected" : ""}${hov === b.slug ? " is-hover" : ""}`;
+        const h = hov === b.slug;
+        const circle: CSSProperties = {
+          width: n.size,
+          height: n.size,
+          fontSize: n.font,
+          background: s ? "#fff" : "transparent",
+          borderColor: s ? "#fff" : h ? C.a400 : C.gray600,
+          color: s ? C.ink : h ? C.a400 : C.gray200,
+          outline: `5px solid ${s ? C.a500 : "rgba(0,0,0,0)"}`,
+          transform: h ? "scale(1.06)" : "scale(1)",
+          transition: "all 250ms ease-out",
+        };
         return (
           <button
             key={b.slug}
@@ -98,11 +148,22 @@ function ScopeGraphic({
             onBlur={() => setHov(null)}
             aria-pressed={s}
             aria-label={`Feature ${b.title}`}
-            className={`hero-node gap-3 scope-node--${i + 1}${state}`}
+            className="absolute w-[140px] flex flex-col items-center gap-3 cursor-pointer rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+            style={{ left: n.left, top: n.top }}
           >
-            <span className="hero-node-circle font-extrabold">{b.n}</span>
+            <span
+              className="box-border rounded-full border flex items-center justify-center font-extrabold tracking-[-0.03em]"
+              style={circle}
+            >
+              {b.n}
+            </span>
             <span className="flex flex-col items-center gap-0.5">
-              <span className="hero-node-label text-sm font-bold tracking-[-0.02em]">{b.title}</span>
+              <span
+                className="text-sm font-bold tracking-[-0.02em]"
+                style={{ color: s ? "#fff" : h ? C.a400 : C.gray300, transition: "color 200ms ease-out" }}
+              >
+                {b.title}
+              </span>
               <span className="text-xs text-gray-400">{b.scope}</span>
             </span>
           </button>
@@ -140,11 +201,12 @@ function StatusDot({ live }: { live: boolean }) {
   return <span className={`w-[7px] h-[7px] rounded-full ${live ? "bg-green-600" : "bg-accent-500"}`} />;
 }
 
-function BuildRow({ b }: { b: WorkBuild }) {
+function BuildRow({ b, index }: { b: WorkBuild; index: number }) {
   return (
     <a
       href={b.href}
       className="group grid grid-cols-[112px_minmax(0,1fr)] sm:grid-cols-[160px_minmax(0,1fr)_auto] gap-5 sm:gap-7 items-center p-4 -mx-4 rounded-xl transition-colors hover:bg-accent-50 km-in"
+      style={{ animationDelay: `${100 + index * 80}ms` }}
     >
       <Thumb b={b} />
       <div className="flex flex-col gap-1.5 min-w-0">
@@ -209,7 +271,7 @@ export default function WorkIndex({ builds }: WorkIndexProps) {
             </div>
           </div>
           <div className="hidden lg:block">
-            {oldestFirst.length === SCOPE_SLOTS && (
+            {oldestFirst.length === NODES.length && (
               <ScopeGraphic builds={oldestFirst} sel={sel} hov={hov} setHov={setHov} choose={choose} />
             )}
           </div>
@@ -268,9 +330,9 @@ export default function WorkIndex({ builds }: WorkIndexProps) {
               </div>
             </a>
             {rest.length > 0 && (
-              <div className="border-t border-gray-900 pt-2 flex flex-col gap-1 km-stagger [--km-lead:100ms]">
-                {rest.map((b) => (
-                  <BuildRow key={b.slug} b={b} />
+              <div className="border-t border-gray-900 pt-2 flex flex-col gap-1">
+                {rest.map((b, i) => (
+                  <BuildRow key={b.slug} b={b} index={i} />
                 ))}
               </div>
             )}
@@ -281,11 +343,9 @@ export default function WorkIndex({ builds }: WorkIndexProps) {
               <h2 className="text-[28px] md:text-[32px] font-extrabold tracking-[-0.035em] text-gray-900">{cat}</h2>
               <p className="text-base leading-normal text-gray-700">{CTX[cat]}</p>
             </div>
-            <div className="flex flex-col gap-1 km-stagger [--km-lead:100ms]">
-              {catItems.map((b) => (
-                <BuildRow key={b.slug} b={b} />
-              ))}
-            </div>
+            {catItems.map((b, i) => (
+              <BuildRow key={b.slug} b={b} index={i} />
+            ))}
           </div>
         )}
       </section>

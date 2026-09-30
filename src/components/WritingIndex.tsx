@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
 import { useReducedMotion } from "framer-motion";
 import { NodeIcon } from "./ExperimentLoop";
 import { THREADS } from "./threads";
@@ -24,9 +25,21 @@ type Filter = ThreadKey | "all";
 const TAB_ORDER: Filter[] = ["all", "practice", "building", "signals"];
 const isFilter = (v: string | null): v is Filter => v !== null && (TAB_ORDER as string[]).includes(v);
 
-// Mini triangle (340 x 310), from the Blog Index design. Node positions and the pulse paths
-// along these lanes live in global.css ("Writing mini loop").
-const NODE_ORDER: ThreadKey[] = ["building", "practice", "signals"];
+const C = {
+  ink: "#111827",
+  gray200: "#e5e7eb",
+  gray300: "#d1d5db",
+  gray600: "#4b5563",
+  a400: "#38bdf8",
+  a500: "#0ea5e9",
+};
+
+// Mini triangle geometry (340 x 310), from the Blog Index design.
+const NODES: Record<ThreadKey, { x: number; y: number; labelAbove: boolean }> = {
+  building: { x: 170, y: 60, labelAbove: true },
+  practice: { x: 68, y: 246, labelAbove: false },
+  signals: { x: 272, y: 246, labelAbove: false },
+};
 const LANES: { pair: [ThreadKey, ThreadKey]; d: string }[] = [
   { pair: ["building", "signals"], d: "M188.6 126L245 213.4" },
   { pair: ["building", "signals"], d: "M253.4 208L197 120.6" },
@@ -54,31 +67,71 @@ function MiniLoop({
     <div className="relative w-[340px] h-[310px]">
       <svg width={340} height={310} viewBox="0 0 340 310" className="absolute inset-0" aria-hidden="true">
         <defs>
-          <marker id="heroArrowOn" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
-            <path d="M0 0L10 5L0 10z" className="hero-arrow-on" />
+          <marker id="wiOn" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+            <path d="M0 0L10 5L0 10z" fill={C.a400} />
           </marker>
-          <marker id="heroArrowOff" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
-            <path d="M0 0L10 5L0 10z" className="hero-arrow-off" />
+          <marker id="wiOff" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+            <path d="M0 0L10 5L0 10z" fill={C.gray600} />
           </marker>
         </defs>
-        {LANES.map((l) => (
-          <path key={l.d} d={l.d} className={`hero-lane${lit(...l.pair) ? " is-on" : ""}`} />
-        ))}
+        {LANES.map((l, i) => {
+          const on = lit(...l.pair);
+          return (
+            <path
+              key={i}
+              d={l.d}
+              fill="none"
+              strokeWidth={1.5}
+              stroke={on ? C.a400 : C.gray600}
+              markerEnd={`url(#${on ? "wiOn" : "wiOff"})`}
+              style={{ transition: "stroke 200ms ease-out" }}
+            />
+          );
+        })}
       </svg>
 
       {filter === "all" && !reduce && (
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          {LANES.map((l) => (
-            <div key={l.d} className="hero-pulse mini-loop-pulse" />
+          {LANES.map((l, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: 6,
+                height: 6,
+                borderRadius: 999,
+                background: C.a400,
+                offsetPath: `path('${l.d}')`,
+                offsetRotate: "0deg",
+                animation: `kmPulse 2400ms ease-in-out ${i * 400}ms infinite both`,
+              }}
+            />
           ))}
         </div>
       )}
 
-      {NODE_ORDER.map((k) => {
+      {(Object.keys(NODES) as ThreadKey[]).map((k) => {
+        const n = NODES[k];
         const sel = filter === k;
-        const state = `${sel ? " is-selected" : ""}${hov === k ? " is-hover" : ""}`;
-        const labelAbove = k === "building";
-        const label = <span className="hero-node-label text-[13px] font-semibold">{THREADS[k].shortLabel}</span>;
+        const on = hov === k;
+        const circle: CSSProperties = {
+          background: sel ? "#fff" : "transparent",
+          borderColor: sel ? "#fff" : on ? C.a400 : C.gray600,
+          color: sel ? C.ink : on ? C.a400 : C.gray200,
+          outline: `5px solid ${sel ? C.a500 : "rgba(0,0,0,0)"}`,
+          transform: on ? "scale(1.06)" : "scale(1)",
+          transition: "all 250ms ease-out",
+        };
+        const label = (
+          <span
+            className="text-[13px] font-semibold"
+            style={{ color: sel ? "#fff" : on ? C.a400 : C.gray300, transition: "color 200ms ease-out" }}
+          >
+            {THREADS[k].shortLabel}
+          </span>
+        );
         return (
           <button
             key={k}
@@ -90,13 +143,14 @@ function MiniLoop({
             onBlur={() => setHov(null)}
             aria-pressed={sel}
             aria-label={`Show ${THREADS[k].label}`}
-            className={`hero-node gap-2.5 mini-loop-node--${k}${state}`}
+            className="absolute w-[140px] flex flex-col items-center gap-2.5 cursor-pointer rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+            style={{ left: n.x - 70, top: n.labelAbove ? n.y - 60 : n.y - 32 }}
           >
-            {labelAbove && label}
-            <span className="hero-node-circle w-16 h-16">
+            {n.labelAbove && label}
+            <span className="w-16 h-16 rounded-full border flex items-center justify-center" style={circle}>
               <NodeIcon k={k} size={24} />
             </span>
-            {!labelAbove && label}
+            {!n.labelAbove && label}
           </button>
         );
       })}
@@ -113,11 +167,12 @@ function DateTile({ month, day }: { month: string; day: string }) {
   );
 }
 
-function PostRow({ post, showThread }: { post: WritingPost; showThread: boolean }) {
+function PostRow({ post, showThread, index }: { post: WritingPost; showThread: boolean; index: number }) {
   return (
     <a
       href={post.href}
       className="group grid grid-cols-[88px_minmax(0,1fr)] sm:grid-cols-[120px_minmax(0,1fr)_auto] gap-5 sm:gap-7 items-center p-4 -mx-4 rounded-xl transition-colors hover:bg-accent-50 km-in"
+      style={{ animationDelay: `${100 + index * 80}ms` }}
     >
       <DateTile month={post.month} day={post.day} />
       <div className="flex flex-col gap-1.5 min-w-0">
@@ -179,9 +234,8 @@ export default function WritingIndex({ posts, buildTitles }: WritingIndexProps) 
               What I'm seeing in the industry, what I'm building to test it, and how I actually work with AI tools.
             </p>
             <p
-              className={`hidden md:block min-h-[26px] text-[15px] leading-relaxed text-accent-200 max-w-[560px] transition-opacity duration-200 ease-out ${
-                captionKey ? "opacity-100" : "opacity-0"
-              }`}
+              className="hidden md:block min-h-[26px] text-[15px] leading-relaxed text-accent-200 max-w-[560px]"
+              style={{ opacity: captionKey ? 1 : 0, transition: "opacity 200ms ease-out" }}
               aria-live="polite"
             >
               {captionKey ? THREADS[captionKey].context : ""}
@@ -252,15 +306,15 @@ export default function WritingIndex({ posts, buildTitles }: WritingIndexProps) 
               </a>
             )}
             {rest.length > 0 && (
-              <div className="border-t border-gray-900 pt-2 flex flex-col gap-1 km-stagger [--km-lead:100ms]">
-                {rest.map((p) => (
-                  <PostRow key={p.href} post={p} showThread />
+              <div className="border-t border-gray-900 pt-2 flex flex-col gap-1">
+                {rest.map((p, i) => (
+                  <PostRow key={p.href} post={p} showThread index={i} />
                 ))}
               </div>
             )}
           </div>
         ) : (
-          <div key={filter} className="flex flex-col gap-1 km-stagger [--km-lead:20ms]">
+          <div key={filter} className="flex flex-col gap-1">
             <div className="flex flex-col gap-2 pb-5 mb-2 border-b border-gray-900 km-in">
               <h2 className="text-[28px] md:text-[32px] font-extrabold tracking-[-0.035em] text-gray-900">
                 {THREADS[filter].label}
@@ -268,7 +322,7 @@ export default function WritingIndex({ posts, buildTitles }: WritingIndexProps) 
               <p className="text-base leading-normal text-gray-700">{THREADS[filter].context}</p>
             </div>
             {filtered.length > 0 ? (
-              filtered.map((p) => <PostRow key={p.href} post={p} showThread={false} />)
+              filtered.map((p, i) => <PostRow key={p.href} post={p} showThread={false} index={i} />)
             ) : filter === "building" ? (
               <div className="mt-3 p-7 rounded-xl bg-gray-50 flex flex-wrap justify-between items-center gap-6 km-in">
                 <div className="flex flex-col gap-1.5">

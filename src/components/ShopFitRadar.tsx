@@ -18,7 +18,7 @@ const WORKAROUND = "#f87171"; // red-400
 
 function Swatch({ kind, color }: { kind: "line" | "dashed" | "fill"; color: string }) {
   if (kind === "fill") {
-    return <span className="inline-block w-3 h-3 rounded-sm shrink-0 mt-0.5 opacity-[0.55]" style={{ background: color }} />;
+    return <span className="inline-block w-3 h-3 rounded-sm shrink-0 mt-0.5" style={{ background: color, opacity: 0.55 }} />;
   }
   return (
     <svg width="18" height="10" aria-hidden="true" className="shrink-0 mt-1">

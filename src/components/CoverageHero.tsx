@@ -123,7 +123,7 @@ export default function CoverageHero() {
   return (
     <div ref={rootRef} className="not-prose font-sans my-10 rounded-xl border border-gray-200 bg-white p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div className="min-w-0 transition-opacity duration-150" style={{ opacity: fade }}>
+        <div className="min-w-0" style={{ opacity: fade, transition: "opacity 150ms" }}>
           <div className="diagram-eyebrow">The bet, one shop at a time</div>
           <div className="text-sm font-semibold text-gray-900 mt-2 flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full shrink-0" style={{ background: company.color }} />
@@ -178,10 +178,11 @@ export default function CoverageHero() {
               return (
                 <li
                   key={s.title}
-                  className={`flex gap-2.5 pl-3 border-l-2 border-transparent transition-all duration-300 ${
-                    state === "active" ? "opacity-100" : state === "done" ? "opacity-[0.65]" : "opacity-30"
-                  }`}
-                  style={state === "active" ? { borderColor: s.color } : undefined}
+                  className="flex gap-2.5 pl-3 border-l-2 transition-all duration-300"
+                  style={{
+                    borderColor: state === "active" ? s.color : "transparent",
+                    opacity: state === "active" ? 1 : state === "done" ? 0.65 : 0.3,
+                  }}
                 >
                   <StepIcon step={n} color={s.color} />
                   <div>
