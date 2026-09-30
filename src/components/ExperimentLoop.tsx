@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 import { useReducedMotion } from "framer-motion";
 
 import type { ThreadKey } from "./threads";
@@ -37,22 +36,9 @@ interface ExperimentLoopProps {
 
 const ORDER: ThreadKey[] = ["building", "signals", "practice"];
 
-// Tailwind gray/sky values, needed inline because the diagram is computed per frame.
-const C = {
-  ink: "#111827",
-  inkStrong: "#1f2937",
-  line: "#e5e7eb",
-  dot: "#d1d5db",
-  a50: "#f0f9ff",
-  a100: "#e0f2fe",
-  a200: "#bae6fd",
-  a400: "#38bdf8",
-  a500: "#0ea5e9",
-  a600: "#0284c7",
-};
-
-const STAGE_H = 385;
-const LIST_LEFT = 500;
+// Colors, states and motion are the loop-* classes in global.css. Only geometry, which is
+// computed from the measured width every frame, is set inline.
+const STAGE_H = 385; // matches h-[385px] on the stage
 
 // ---------- Geometry ----------
 
@@ -168,19 +154,7 @@ export function NodeIcon({ k, size }: { k: ThreadKey; size: number }) {
   );
 }
 
-function nodeStyle(sel: boolean, hov: boolean): CSSProperties {
-  return {
-    background: sel ? C.ink : hov ? C.a50 : "#fff",
-    borderColor: sel ? C.ink : hov ? C.a400 : C.line,
-    color: sel ? "#fff" : hov ? C.a600 : C.inkStrong,
-    outline: `8px solid ${sel ? C.a100 : "rgba(255,255,255,0)"}`,
-    transform: hov ? "scale(1.05)" : "scale(1)",
-    transition:
-      "background 250ms ease-out, border-color 250ms ease-out, color 250ms ease-out, outline-color 250ms ease-out, transform 200ms ease-out",
-  };
-}
-
-const labelColor = (sel: boolean, hov: boolean) => (hov && !sel ? C.a600 : sel ? C.ink : C.inkStrong);
+const stateClass = (sel: boolean, hov: boolean) => `${hov ? " is-hover" : ""}${sel ? " is-selected" : ""}`;
 
 interface EdgeLayerProps {
   W: number;
@@ -197,27 +171,15 @@ interface EdgeLayerProps {
 
 function EdgeLayer({ W, H, drawn, pulsePaths, sel, hov, pulseKey, delay, loop, motion }: EdgeLayerProps) {
   const uid = useId().replace(/:/g, "");
-  const col = { sel: C.a500, hov: C.a200, off: C.dot };
+  const tones = ["sel", "hov", "off"] as const;
   const tone = (l: Lane) =>
     l.f === sel || l.t === sel ? "sel" : l.f === hov || l.t === hov ? "hov" : "off";
-  const dot = (d: string, size: number, color: string, animation: string): CSSProperties => ({
-    position: "absolute",
-    left: 0,
-    top: 0,
-    width: size,
-    height: size,
-    borderRadius: 999,
-    background: color,
-    offsetPath: `path('${d}')`,
-    offsetRotate: "0deg",
-    animation,
-  });
 
   return (
     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="absolute inset-0">
         <defs>
-          {(Object.keys(col) as (keyof typeof col)[]).map((k) => (
+          {tones.map((k) => (
             <marker
               key={k}
               id={`${uid}${k}`}
@@ -228,20 +190,12 @@ function EdgeLayer({ W, H, drawn, pulsePaths, sel, hov, pulseKey, delay, loop, m
               markerHeight={6}
               orient="auto"
             >
-              <path d="M0 0L10 5L0 10z" fill={col[k]} />
+              <path d="M0 0L10 5L0 10z" className={`loop-arrow--${k}`} />
             </marker>
           ))}
         </defs>
         {drawn.map((l, i) => (
-          <path
-            key={i}
-            d={l.d}
-            fill="none"
-            stroke={col[tone(l)]}
-            strokeWidth={1.5}
-            markerEnd={`url(#${uid}${tone(l)})`}
-            style={{ transition: "stroke 200ms ease-out" }}
-          />
+          <path key={i} d={l.d} className={`loop-lane loop-lane--${tone(l)}`} markerEnd={`url(#${uid}${tone(l)})`} />
         ))}
       </svg>
       {motion &&
@@ -251,16 +205,14 @@ function EdgeLayer({ W, H, drawn, pulsePaths, sel, hov, pulseKey, delay, loop, m
           .map((l, i) => (
             <div
               key={`${pulseKey}-${sel}-${i}`}
-              style={dot(l.d, 9, C.a500, `kmPulse 800ms ease-in-out ${delay + (l.f === sel ? 0 : 550)}ms both`)}
+              className="loop-pulse loop-pulse--sel"
+              style={{ offsetPath: `path('${l.d}')`, animationDelay: `${delay + (l.f === sel ? 0 : 550)}ms` }}
             />
           ))}
       {motion &&
         loop &&
         pulsePaths.map((l, i) => (
-          <div
-            key={`loop-${i}`}
-            style={dot(l.d, 7, C.a400, `kmPulse 2400ms ease-in-out ${i * 400}ms infinite both`)}
-          />
+          <div key={`loop-${i}`} className="loop-pulse loop-pulse--loop" style={{ offsetPath: `path('${l.d}')` }} />
         ))}
     </div>
   );
@@ -307,9 +259,8 @@ function ThumbView({ thumb, compact }: { thumb: Thumb; compact?: boolean }) {
 }
 
 function ThreadList({ thread, compact }: { thread: LoopThread; compact?: boolean }) {
-  const delay = (i: number) => ({ animationDelay: `${80 * (i + 1)}ms` });
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col km-stagger">
       <div className="flex flex-col gap-2 pb-3 mb-1 border-b border-gray-900 km-in">
         <h3
           className={`${compact ? "text-2xl" : "text-[26px]"} font-extrabold tracking-[-0.035em] leading-tight text-gray-900 text-balance`}
@@ -320,19 +271,18 @@ function ThreadList({ thread, compact }: { thread: LoopThread; compact?: boolean
       </div>
 
       {thread.items.length === 0 ? (
-        <div className="mt-3 p-7 rounded-xl bg-gray-50 flex flex-col gap-1.5 km-in" style={delay(0)}>
+        <div className="mt-3 p-7 rounded-xl bg-gray-50 flex flex-col gap-1.5 km-in">
           <span className="text-lg font-bold tracking-tight text-gray-800">Nothing published yet.</span>
           <span className="text-[15px] leading-normal text-gray-600">Working notes will go here.</span>
         </div>
       ) : (
-        thread.items.map((item, i) => (
+        thread.items.map((item) => (
           <a
             key={item.href}
             href={item.href}
             className={`group grid ${
               compact ? "grid-cols-[88px_minmax(0,1fr)] gap-4" : "grid-cols-[112px_minmax(0,1fr)_auto] gap-5"
             } items-center py-2.5 px-3 -mx-3 rounded-xl transition-colors hover:bg-accent-50 km-in`}
-            style={delay(i)}
           >
             <ThumbView thumb={item.thumb} compact={compact} />
             <div className="flex flex-col gap-1 min-w-0">
@@ -352,7 +302,6 @@ function ThreadList({ thread, compact }: { thread: LoopThread; compact?: boolean
       <a
         href={thread.allHref}
         className="pt-4 text-[15px] font-semibold text-accent-600 hover:text-accent-700 transition-colors km-in"
-        style={delay(thread.items.length)}
       >
         {thread.allLabel} →
       </a>
@@ -419,7 +368,7 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
   const [topX, topY] = pos(g, "building"); // top of the triangle while nothing is selected
 
   return (
-    <div ref={ref} className="relative w-full" style={{ height: STAGE_H }}>
+    <div ref={ref} className="relative w-full h-[385px]">
       <EdgeLayer
         W={W}
         H={STAGE_H}
@@ -435,13 +384,7 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
 
       {/* Explainer, shown while nothing is selected */}
       <div
-        className="absolute left-0 w-[360px] flex flex-col gap-4 pointer-events-none"
-        style={{
-          top: 75,
-          opacity: open ? 0 : 1,
-          transform: open ? "translateX(-24px)" : "none",
-          transition: "opacity 300ms ease-out, transform 300ms ease-out",
-        }}
+        className={`loop-explainer absolute left-0 top-[75px] w-[360px] flex flex-col gap-4 pointer-events-none${open ? " is-hidden" : ""}`}
         aria-hidden={open}
       >
         <h2 className="text-4xl font-extrabold tracking-[-0.035em] leading-[1.08] text-gray-900">
@@ -455,14 +398,10 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
 
       {/* Hover context, beside the top node */}
       <div
-        className="absolute w-60 flex flex-col items-center gap-2 text-center pointer-events-none"
-        style={{
-          left: topX + g.d.building / 2 + 64,
-          top: topY,
-          transform: "translateY(-50%)",
-          opacity: !open && ctx ? 1 : 0,
-          transition: "opacity 250ms ease-out",
-        }}
+        className={`loop-fade absolute w-60 -translate-y-1/2 flex flex-col items-center gap-2 text-center pointer-events-none${
+          !open && ctx ? "" : " is-hidden"
+        }`}
+        style={{ left: topX + g.d.building / 2 + 64, top: topY }}
         aria-hidden="true"
       >
         <span className="text-xs font-semibold uppercase tracking-widest text-accent-700">{ctx?.label}</span>
@@ -493,28 +432,20 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
               onBlur={() => setHov(null)}
               aria-pressed={isSel}
               aria-label={`${byKey[k].label}, ${byKey[k].count}`}
-              className="absolute rounded-full border flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-4"
-              style={{ left: -d / 2, top: -d / 2, width: d, height: d, ...nodeStyle(isSel, isHov) }}
+              className={`loop-node${stateClass(isSel, isHov)}`}
+              style={{ left: -d / 2, top: -d / 2, width: d, height: d }}
             >
               <NodeIcon k={k} size={Math.round(d * (isSel ? 0.34 : 0.26))} />
             </button>
             <div
               {...handlers}
               aria-hidden="true"
-              className="absolute w-[200px] flex flex-col gap-0.5 items-center text-center cursor-pointer"
-              style={{
-                left: labelLeft,
-                top: open ? (uy < 0 ? -d / 2 - 10 : d / 2 + 10) : uy * rr - 30,
-                transform: open && uy < 0 ? "translateY(-100%)" : "none",
-                opacity: isSel ? 0 : 1,
-                pointerEvents: isSel ? "none" : "auto",
-                transition: "opacity 250ms ease-out",
-              }}
+              className={`loop-fade absolute w-[200px] flex flex-col gap-0.5 items-center text-center cursor-pointer${
+                open && uy < 0 ? " -translate-y-full" : ""
+              }${isSel ? " is-hidden" : ""}`}
+              style={{ left: labelLeft, top: open ? (uy < 0 ? -d / 2 - 10 : d / 2 + 10) : uy * rr - 30 }}
             >
-              <span
-                className="text-[17px] font-bold tracking-[-0.025em]"
-                style={{ color: labelColor(isSel, isHov), transition: "color 200ms ease-out" }}
-              >
+              <span className={`loop-label text-[17px] font-bold tracking-[-0.025em]${stateClass(isSel, isHov)}`}>
                 {byKey[k].label}
               </span>
               <span className="text-[13px] text-gray-600">{byKey[k].count}</span>
@@ -524,20 +455,7 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
       })}
 
       {/* List panel */}
-      <div
-        className="absolute -top-3"
-        style={{
-          left: LIST_LEFT,
-          width: Math.max(W - LIST_LEFT, 0),
-          opacity: open ? 1 : 0,
-          transform: open ? "none" : "translateX(32px)",
-          visibility: open ? "visible" : "hidden",
-          transition: open
-            ? "opacity 400ms ease-out, transform 400ms ease-out, visibility 0s"
-            : "opacity 400ms ease-out, transform 400ms ease-out, visibility 0s linear 400ms",
-        }}
-        aria-live="polite"
-      >
+      <div className={`loop-panel absolute -top-3 left-[500px] right-0${open ? " is-open" : ""}`} aria-live="polite">
         <ThreadList key={`${shown}-${pulseKey}`} thread={byKey[shown]} />
       </div>
     </div>
@@ -546,8 +464,8 @@ function DesktopLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
 
 // ---------- Compact: a fixed triangle used as tabs ----------
 
-const COMPACT_H = 350;
-const COMPACT_D = 76;
+const COMPACT_H = 350; // matches h-[350px] on the compact stage
+const COMPACT_D = 76; // matches the w/h-[76px] node classes
 
 function CompactLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
   const [ref, W] = useWidth<HTMLDivElement>(360);
@@ -583,7 +501,7 @@ function CompactLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
         </p>
       </div>
 
-      <div ref={ref} className="relative w-full" style={{ height: COMPACT_H }}>
+      <div ref={ref} className="relative w-full h-[350px]">
         <EdgeLayer
           W={W}
           H={COMPACT_H}
@@ -610,31 +528,18 @@ function CompactLoop({ byKey }: { byKey: Record<ThreadKey, LoopThread> }) {
                 onMouseLeave={() => setHov(null)}
                 aria-pressed={isSel}
                 aria-label={`${byKey[k].label}, ${byKey[k].count}`}
-                className="absolute rounded-full border flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-4"
-                style={{
-                  left: -COMPACT_D / 2,
-                  top: -COMPACT_D / 2,
-                  width: COMPACT_D,
-                  height: COMPACT_D,
-                  ...nodeStyle(isSel, isHov),
-                }}
+                className={`loop-node w-[76px] h-[76px] -left-[38px] -top-[38px]${stateClass(isSel, isHov)}`}
               >
                 <NodeIcon k={k} size={24} />
               </button>
               <div
                 aria-hidden="true"
                 onClick={() => choose(k)}
-                className="absolute w-[128px] -ml-16 flex flex-col items-center text-center cursor-pointer"
-                style={
-                  above
-                    ? { bottom: COMPACT_D / 2 + 14 }
-                    : { top: COMPACT_D / 2 + 14 }
-                }
+                className={`absolute w-[128px] -ml-16 flex flex-col items-center text-center cursor-pointer ${
+                  above ? "bottom-[52px]" : "top-[52px]"
+                }`}
               >
-                <span
-                  className="text-sm font-bold tracking-[-0.02em] leading-tight"
-                  style={{ color: labelColor(isSel, isHov) }}
-                >
+                <span className={`loop-label text-sm font-bold tracking-[-0.02em] leading-tight${stateClass(isSel, isHov)}`}>
                   {byKey[k].label}
                 </span>
                 <span className="text-xs text-gray-600">{byKey[k].count}</span>

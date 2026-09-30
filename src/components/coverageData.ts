@@ -30,7 +30,6 @@ export interface Solution {
   description: string;
   coverage: number[];
   color: string;
-  raw: string;
   fill: string;
 }
 
@@ -85,8 +84,7 @@ export const SOLUTIONS: Solution[] = [
     sub: "General",
     description: "Strong on the shared core, moderate elsewhere.",
     coverage: [85, 80, 40, 55, 45, 35, 70, 65],
-    color: "var(--accent-500)",
-    raw: "#0ea5e9",
+    color: "#0ea5e9",
     fill: "rgba(14,165,233,0.10)",
   },
   {
@@ -96,8 +94,7 @@ export const SOLUTIONS: Solution[] = [
     sub: "General",
     description: "Solid on the shared core, weak everywhere else.",
     coverage: [70, 65, 15, 20, 15, 10, 25, 20],
-    color: "var(--ink-soft)",
-    raw: "#6b7280",
+    color: "#6b7280",
     fill: "rgba(107,114,128,0.10)",
   },
   {
@@ -107,8 +104,7 @@ export const SOLUTIONS: Solution[] = [
     sub: "Specialized",
     description: "Deep on traceability and quality, shallow everywhere else.",
     coverage: [45, 45, 75, 70, 40, 40, 40, 40],
-    color: "var(--risk-500)",
-    raw: "#f97316",
+    color: "#f97316",
     fill: "rgba(249,115,22,0.10)",
   },
 ];

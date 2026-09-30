@@ -4,7 +4,7 @@ import { CX, CY, N, NEEDS, SHORT, poly, pt } from "./coverageData";
 /* Axis labels are drawn larger than the prototype's so they stay legible at the smaller radar size */
 export default function RadarFrame({ children }: { children: ReactNode }) {
   return (
-    <svg viewBox="-70 -34 460 408" style={{ width: "100%", display: "block", overflow: "visible" }}>
+    <svg viewBox="-70 -34 460 408" className="block w-full overflow-visible">
       {[25, 50, 75, 100].map((step) => (
         <polygon
           key={step}
